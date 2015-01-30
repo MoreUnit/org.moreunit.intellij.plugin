@@ -1,0 +1,47 @@
+<idea-plugin version="2">
+  <id>${project.artifactId}</id>
+  <name>${project.name}</name>
+  <version>${project.version}</version>
+  <vendor email="${vendor.email}" url="${vendor.url}">${vendor.name}</vendor>
+
+  <description>
+    <![CDATA[
+      ${project.description}
+    ]]>
+  </description>
+
+  <change-notes>
+    <![CDATA[
+      No changes.
+    ]]>
+  </change-notes>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products on how to target different products -->
+  <!-- uncomment to enable plugin in all products -->
+  <depends>com.intellij.modules.lang</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <action id="org.moreunit.actions.jump"
+        class="org.moreunit.intellij.plugin.JumpAction"
+        text="_Jump"
+        description="Jump to a corresponding test file — if in a production source file — or to a corresponding production source file — if in a test file.">
+      <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoTest"/>
+    </action>
+  </actions>
+
+</idea-plugin>
