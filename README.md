@@ -1,6 +1,6 @@
 # MoreUnit For Intellij
 
-<img alt="MoreUnit build status" src="https://travis-ci.org/MoreUnit/org.moreunit.intellij.plugin.svg?branch=master" />
+<a title="MoreUnit build on Travis CI" href="https://travis-ci.org/MoreUnit/org.moreunit.intellij.plugin"><img alt="MoreUnit build status" src="https://travis-ci.org/MoreUnit/org.moreunit.intellij.plugin.svg?branch=master" /></a>
 
 ## Development
 ### Getting Started
