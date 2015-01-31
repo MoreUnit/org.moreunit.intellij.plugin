@@ -1,0 +1,8 @@
+language: java
+jdk: oraclejdk8
+cache:
+  directories:
+    - $HOME/.m2
+    - ../idea-ce
+before_script: ./download-idea-sources.sh
+script: ./build.sh
