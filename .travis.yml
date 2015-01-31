@@ -3,6 +3,6 @@ jdk: oraclejdk8
 cache:
   directories:
     - $HOME/.m2
-    - ../idea-ce
+    - $TRAVIS_BUILD_DIR/../idea-ce
 install: ./download-idea-sources.sh
 script: ./build.sh
