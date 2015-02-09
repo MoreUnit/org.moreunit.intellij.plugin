@@ -29,8 +29,7 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		VirtualFile srcVFile = srcFile.getVirtualFile();
 		String name = srcVFile.getNameWithoutExtension();
 
-
-		String expectedDestName = name + "Test." + srcVFile.getExtension();
+		String expectedDestName = generateDestName(name, srcVFile.getExtension());
 		PsiFile[] destFiles = FilenameIndex.getFilesByName(project, expectedDestName, GlobalSearchScope.allScope(project));
 
 		if (destFiles.length != 0) {
@@ -42,6 +41,13 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		// - ProjectRootManager.getInstance(clazz.getProject()).getFileIndex().isInTestSourceContent(vFile);
 
 		return new GotoData(srcFile, destFiles, emptyList());
+	}
+
+	private String generateDestName(String name, String extension) {
+		if (name.endsWith("Test")) {
+			return name.substring(0, name.length() - "Test".length()) + "." + extension;
+		}
+		return name + "Test." + extension;
 	}
 
 	@NotNull

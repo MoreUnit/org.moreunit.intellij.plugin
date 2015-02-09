@@ -37,4 +37,18 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 		// then no exception is thrown, and:
 		assertEquals(srcFileWithoutTestCounterpart, getEditedFile());
 	}
+
+	public void test__using_CamelCase_naming_and_Test_suffix__should_jump_from_test_code_to_production_code() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/pack/Foo.java", "package pack; public class Foo() {}");
+		VirtualFile testFile = mainModule.addFile("test/pack/FooTest.java", "package pack; public class FooTest() {}");
+
+		openFileInEditor(testFile);
+
+		// when
+		performEditorAction("org.moreunit.actions.jump");
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
 }
