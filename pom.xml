@@ -219,10 +219,10 @@
           <argLine>
             -ea
             -Xmx512m
-            -Xbootclasspath/a:@{project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/boot.jar
-            -Didea.system.path=@{project.build.directory}/test-system
+            -Xbootclasspath/a:${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/boot.jar
+            -Didea.system.path=${project.build.directory}/test-system
             -Didea.home.path=.
-            -Didea.config.path=@{project.build.directory}/test-config
+            -Didea.config.path=${project.build.directory}/test-config
             -Didea.platform.prefix=Idea
             -Didea.test.group=ALL_EXCLUDE_DEFINED
             -Didea.load.plugins.id=org.moreunit.intellij.plugin

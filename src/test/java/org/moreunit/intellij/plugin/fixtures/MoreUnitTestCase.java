@@ -41,7 +41,6 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 
-	private final Map<Integer, ModuleFacade> modules = new HashMap<>();
 	private Editor editor;
 	protected ModuleFacade mainModule;
 
@@ -143,11 +142,6 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		return getProject().getBaseDir();
 	}
 
-
-	protected ModuleFacade getModule(int moduleId) {
-		return modules.get(moduleId);
-	}
-
 	protected PsiFile psiFileFor(VirtualFile vFile) {
 		return PsiManager.getInstance(getProject()).findFile(vFile);
 	}
@@ -184,6 +178,11 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 				sourceRoots.put(pathRelativeToModule, dir);
 				return dir;
 			});
+		}
+
+		@NotNull
+		public VirtualFile addFile(@NotNull String pathRelativeToModule) {
+			return addFile(pathRelativeToModule, "");
 		}
 
 		@NotNull

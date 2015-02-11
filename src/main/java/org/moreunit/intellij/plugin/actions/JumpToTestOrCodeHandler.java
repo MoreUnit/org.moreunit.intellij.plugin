@@ -12,10 +12,18 @@ import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.moreunit.intellij.plugin.files.SubjectFile;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
 
 public class JumpToTestOrCodeHandler extends GotoTargetHandler {
+
 	@Override
 	protected String getFeatureUsedKey() {
 		return "org.moreunit.actions.jump";
@@ -27,28 +35,33 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		Project project = editor.getProject();
 
 		VirtualFile srcVFile = srcFile.getVirtualFile();
-		String name = srcVFile.getNameWithoutExtension();
 
-		String expectedDestName = generateDestName(name, srcVFile.getExtension());
-		PsiFile[] destFiles = FilenameIndex.getFilesByName(project, expectedDestName, GlobalSearchScope.allScope(project));
+		SubjectFile subject = new SubjectFile(srcVFile);
 
-		if (destFiles.length != 0) {
-			FileEditorManager.getInstance(project).openFile(destFiles[0].getVirtualFile(), true);
+		// Warning: returned file names may not exist anymore in the project! Deleted or moved files
+		// may stay in the index, therefore we must check for their existence.
+		// FilenameIndex.getFilesByName() does the trick and only returns existing files.
+		List<String> candidates = Arrays.stream(FilenameIndex.getAllFilenames(project))
+				.filter(subject::isCorrespondingFilename)
+				.collect(Collectors.toList());
+
+		List<PsiFile> allDestFiles = new ArrayList<>();
+		for (String candidate : candidates) {
+			PsiFile[] destFiles = FilenameIndex.getFilesByName(project, candidate, GlobalSearchScope.allScope(project));
+			Collections.addAll(allDestFiles, destFiles);
+		}
+
+		if (!allDestFiles.isEmpty()) {
+			FileEditorManager.getInstance(project).openFile(allDestFiles.get(0).getVirtualFile(), true);
 		}
 
 		// for next steps, have a look at:
 		// - GotoTestOrCodeHandler
 		// - ProjectRootManager.getInstance(clazz.getProject()).getFileIndex().isInTestSourceContent(vFile);
 
-		return new GotoData(srcFile, destFiles, emptyList());
+		return new GotoData(srcFile, allDestFiles.toArray(new PsiElement[allDestFiles.size()]), emptyList());
 	}
 
-	private String generateDestName(String name, String extension) {
-		if (name.endsWith("Test")) {
-			return name.substring(0, name.length() - "Test".length()) + "." + extension;
-		}
-		return name + "Test." + extension;
-	}
 
 	@NotNull
 	@Override
