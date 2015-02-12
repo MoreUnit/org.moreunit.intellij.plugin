@@ -8,6 +8,16 @@ public class Files {
 
 	public static String withoutExtension(String name) {
 		int lastDotIndex = name.lastIndexOf('.');
-		return lastDotIndex == -1 ? name : name.substring(0, lastDotIndex);
+		if (lastDotIndex <= 0) {
+			return name;
+		}
+		return name.substring(0, lastDotIndex);
+	}
+
+	public static String withoutLeadingDot(String name) {
+		if (name.startsWith(".")) {
+			return name.substring(1);
+		}
+		return name;
 	}
 }

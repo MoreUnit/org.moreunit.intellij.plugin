@@ -8,6 +8,7 @@ import java.util.function.Predicate;
 
 import static java.util.Arrays.asList;
 import static org.moreunit.intellij.plugin.files.Files.withoutExtension;
+import static org.moreunit.intellij.plugin.files.Files.withoutLeadingDot;
 
 public class SubjectFile {
 
@@ -53,6 +54,14 @@ public class SubjectFile {
 	public boolean isCorrespondingFilename(String name) {
 		String srcName = fileNameWithoutExtension;
 		String destName = withoutExtension(name);
+
+		if (srcName.startsWith(".")) {
+			if (!destName.startsWith(".")) {
+				return false;
+			}
+			srcName = withoutLeadingDot(srcName);
+			destName = withoutLeadingDot(destName);
+		}
 
 		if (testFile) {
 			return isCorrespondingProductionFilename(srcName, destName);
