@@ -11,16 +11,33 @@ import static org.moreunit.intellij.plugin.files.Files.withoutExtension;
 
 public class SubjectFile {
 
+	private static final List<String> COMMON_TEST_PREFIXES = asList("Test");
 	private static final List<String> COMMON_TEST_SUFFIXES = asList("Spec", "Test");
 
 	private final String fileNameWithoutExtension;
+	private final String prefix;
 	private final String suffix;
 	private final boolean testFile;
 
 	public SubjectFile(VirtualFile srcVFile) {
-		fileNameWithoutExtension = srcVFile.getNameWithoutExtension();
+		this(srcVFile.getNameWithoutExtension());
+	}
+
+	public SubjectFile(String fileNameWithoutExtension) {
+		this.fileNameWithoutExtension = fileNameWithoutExtension;
+		prefix = findTestPrefix(fileNameWithoutExtension);
 		suffix = findTestSuffix(fileNameWithoutExtension);
-		testFile = suffix != null;
+		testFile = prefix != null || suffix != null;
+	}
+
+	@Nullable
+	private static String findTestPrefix(String name) {
+		for (String prefix : COMMON_TEST_PREFIXES) {
+			if (name.startsWith(prefix)) {
+				return prefix;
+			}
+		}
+		return null;
 	}
 
 	@Nullable
@@ -38,9 +55,33 @@ public class SubjectFile {
 		String destName = withoutExtension(name);
 
 		if (testFile) {
-			return isSuffixBetween(destName, srcName).test(suffix);
+			return isCorrespondingProductionFilename(srcName, destName);
 		}
-		return COMMON_TEST_SUFFIXES.stream().anyMatch(isSuffixBetween(srcName, destName));
+		return isCorrespondingTestFilename(srcName, destName);
+	}
+
+	private boolean isCorrespondingTestFilename(String srcName, String destName) {
+		if (!Character.isUpperCase(srcName.charAt(0))) {
+			return false;
+		}
+		if (COMMON_TEST_SUFFIXES.stream().anyMatch(isSuffixBetween(srcName, destName))) {
+			return true;
+		}
+		return COMMON_TEST_PREFIXES.stream().anyMatch(isPrefixBetween(srcName, destName));
+	}
+
+	private boolean isCorrespondingProductionFilename(String srcName, String destName) {
+		if (!Character.isUpperCase(destName.charAt(0))) {
+			return false;
+		}
+		if (isSuffixBetween(destName, srcName).test(suffix)) {
+			return true;
+		}
+		return isPrefixBetween(destName, srcName).test(prefix);
+	}
+
+	private static Predicate<String> isPrefixBetween(String base, String maybePrefixed) {
+		return pre -> maybePrefixed.equals(pre + base);
 	}
 
 	private static Predicate<String> isSuffixBetween(String base, String maybeSuffixed) {

@@ -76,4 +76,32 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 		// then
 		assertEquals(srcFile, getEditedFile());
 	}
+
+	public void test__using_CamelCase_naming_and_Test_prefix__should_jump_from_production_code_to_test_code() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/Something.cpp");
+		VirtualFile testFile = mainModule.addFile("test/TestSomething.cpp");
+
+		openFileInEditor(srcFile);
+
+		// when
+		performEditorAction("org.moreunit.actions.jump");
+
+		// then
+		assertEquals(testFile, getEditedFile());
+	}
+
+	public void test__using_CamelCase_naming_and_Test_prefix__should_jump_from_test_code_to_production_code() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/Something.cpp");
+		VirtualFile testFile = mainModule.addFile("test/TestSomething.cpp");
+
+		openFileInEditor(testFile);
+
+		// when
+		performEditorAction("org.moreunit.actions.jump");
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
 }
