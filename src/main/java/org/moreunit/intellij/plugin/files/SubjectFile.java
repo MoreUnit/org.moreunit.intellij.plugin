@@ -15,8 +15,8 @@ import static org.moreunit.intellij.plugin.util.Strings.capitalize;
 
 public class SubjectFile {
 
-	private static final List<String> COMMON_TEST_PREFIXES = asList("test");
-	private static final List<String> COMMON_TEST_SUFFIXES = asList("spec", "test");
+	private static final List<String> COMMON_TEST_PREFIXES = asList("spec", "test");
+	private static final List<String> COMMON_TEST_SUFFIXES = asList("spec", "test", "should");
 
 	private final String fileNameWithoutExtension;
 	private final String prefix;

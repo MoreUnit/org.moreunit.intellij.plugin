@@ -132,6 +132,46 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 		assertEquals(srcFile, getEditedFile());
 	}
 
+	public void test__using_CamelCase_naming_and_Spec_prefix() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/powers/Baby.txt");
+		VirtualFile testFile = mainModule.addFile("test/powers/SpecBaby.txt");
+
+		openFileInEditor(srcFile);
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(testFile, getEditedFile());
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
+
+	public void test__using_CamelCase_naming_and_Should_suffix() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/pack/AThing.java");
+		VirtualFile testFile = mainModule.addFile("test/pack/AThingShould.java");
+
+		openFileInEditor(srcFile);
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(testFile, getEditedFile());
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
+
 	private void performJumpAction() {
 		performEditorAction("org.moreunit.actions.jump");
 	}
