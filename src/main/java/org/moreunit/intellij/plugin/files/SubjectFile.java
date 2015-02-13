@@ -4,7 +4,6 @@ import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Predicate;
 
 import static java.lang.Character.isUpperCase;
 import static java.util.Arrays.asList;
@@ -79,24 +78,33 @@ public class SubjectFile {
 	}
 
 	private boolean isCorrespondingTestFilename(String srcName, String destName) {
-		if (COMMON_TEST_SUFFIXES.stream().anyMatch(isSuffixBetween(srcName, destName))) {
-			return true;
+		for (String suf : COMMON_TEST_SUFFIXES) {
+			if (isSuffixBetween(suf, srcName, destName)) {
+				return true;
+			}
 		}
-		return COMMON_TEST_PREFIXES.stream().anyMatch(isPrefixBetween(srcName, destName));
+
+		for (String pre : COMMON_TEST_PREFIXES) {
+			if (isPrefixBetween(pre, srcName, destName)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private boolean isCorrespondingProductionFilename(String srcName, String destName) {
-		if (suffix != null && isSuffixBetween(destName, srcName).test(suffix)) {
+		if (suffix != null && isSuffixBetween(suffix, destName, srcName)) {
 			return true;
 		}
-		return prefix != null && isPrefixBetween(destName, srcName).test(prefix);
+		return prefix != null && isPrefixBetween(prefix, destName, srcName);
 	}
 
-	private static Predicate<String> isPrefixBetween(String base, String maybePrefixed) {
-		return pre -> maybePrefixed.equals(applySameCapitalization(pre, maybePrefixed) + capitalize(base));
+	private static boolean isPrefixBetween(String pre, String base, String maybePrefixed) {
+		return maybePrefixed.equals(applySameCapitalization(pre, maybePrefixed) + capitalize(base));
 	}
 
-	private static Predicate<String> isSuffixBetween(String base, String maybeSuffixed) {
-		return suf -> maybeSuffixed.equals(base + capitalize(suf));
+	private static boolean isSuffixBetween(String suf, String base, String maybeSuffixed) {
+		return maybeSuffixed.equals(base + capitalize(suf));
 	}
 }

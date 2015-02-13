@@ -15,12 +15,8 @@ import org.jetbrains.annotations.Nullable;
 import org.moreunit.intellij.plugin.files.SubjectFile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static java.util.Collections.emptyList;
 
 public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 
@@ -38,14 +34,18 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 
 		SubjectFile subject = new SubjectFile(srcVFile);
 
+		List<String> candidates = new ArrayList<String>();
+
 		// Warning: returned file names may not exist anymore in the project! Deleted or moved files
 		// may stay in the index, therefore we must check for their existence.
 		// FilenameIndex.getFilesByName() does the trick and only returns existing files.
-		List<String> candidates = Arrays.stream(FilenameIndex.getAllFilenames(project))
-				.filter(subject::isCorrespondingFilename)
-				.collect(Collectors.toList());
+		for (String name : FilenameIndex.getAllFilenames(project)) {
+			if (subject.isCorrespondingFilename(name)) {
+				candidates.add(name);
+			}
+		}
 
-		List<PsiFile> allDestFiles = new ArrayList<>();
+		List<PsiFile> allDestFiles = new ArrayList<PsiFile>();
 		for (String candidate : candidates) {
 			PsiFile[] destFiles = FilenameIndex.getFilesByName(project, candidate, GlobalSearchScope.allScope(project));
 			Collections.addAll(allDestFiles, destFiles);
@@ -59,7 +59,7 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		// - GotoTestOrCodeHandler
 		// - ProjectRootManager.getInstance(clazz.getProject()).getFileIndex().isInTestSourceContent(vFile);
 
-		return new GotoData(srcFile, allDestFiles.toArray(new PsiElement[allDestFiles.size()]), emptyList());
+		return new GotoData(srcFile, allDestFiles.toArray(new PsiElement[allDestFiles.size()]), Collections.<AdditionalAction>emptyList());
 	}
 
 

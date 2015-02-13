@@ -48,7 +48,9 @@ the plugin from ```target/org.moreunit.intellij.plugin-*.jar```
 ## Development
 ### Requirements
 
-Java 8 && Maven 3.2
+Java 6 && Maven 3.2
+
+Wait... seriously, Java 6? Yes, it is actually [required for MacOS users](https://intellij-support.jetbrains.com/entries/27854363-IDE-doesn-t-start-after-updating-to-Mac-OS-Yosemite-or-Mavericks).
 
 ### Getting Started
 

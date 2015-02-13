@@ -57,11 +57,14 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		mainModule.createSourceRoot("test2", true);
 	}
 
-	private void createModuleDir(Module module) throws IOException {
-		executeWriteAction(() -> {
-			VirtualFile contentRoot = VfsUtil.createDirectoryIfMissing(getProjectDir(), module.getName());
-			PsiTestUtil.addContentRoot(module, contentRoot);
-			return null;
+	private void createModuleDir(final Module module) throws IOException {
+		executeWriteAction(new Callable<Void>() {
+			@Override
+			public Void call() throws Exception {
+				VirtualFile contentRoot = VfsUtil.createDirectoryIfMissing(getProjectDir(), module.getName());
+				PsiTestUtil.addContentRoot(module, contentRoot);
+				return null;
+			}
 		});
 	}
 
@@ -74,7 +77,7 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		super.tearDown();
 	}
 
-	private <T> T executeWriteAction(Callable<T> c) {
+	private <T> T executeWriteAction(final Callable<T> c) {
 		return new WriteCommandAction<T>(getProject()) {
 			@Override
 			protected void run(@NotNull Result<T> result) throws Throwable {
@@ -108,21 +111,24 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 	}
 
 	protected void performEditorAction(@NotNull String actionId) {
-		DataContext dataContext = ((EditorEx) editor).getDataContext();
+		final DataContext dataContext = ((EditorEx) editor).getDataContext();
 
-		ActionManagerEx managerEx = ActionManagerEx.getInstanceEx();
-		AnAction action = managerEx.getAction(actionId);
-		AnActionEvent event = new AnActionEvent(null, dataContext, ActionPlaces.UNKNOWN, new Presentation(), managerEx, 0);
+		final ActionManagerEx managerEx = ActionManagerEx.getInstanceEx();
+		final AnAction action = managerEx.getAction(actionId);
+		final AnActionEvent event = new AnActionEvent(null, dataContext, ActionPlaces.UNKNOWN, new Presentation(), managerEx, 0);
 
-		executeWriteAction(() -> {
-			action.update(event);
+		executeWriteAction(new Callable<Void>() {
+			@Override
+			public Void call() throws Exception {
+				action.update(event);
 
-			assert event.getPresentation().isEnabled();
+				assert event.getPresentation().isEnabled();
 
-			managerEx.fireBeforeActionPerformed(action, dataContext, event);
-			action.actionPerformed(event);
-			managerEx.fireAfterActionPerformed(action, dataContext, event);
-			return null;
+				managerEx.fireBeforeActionPerformed(action, dataContext, event);
+				action.actionPerformed(event);
+				managerEx.fireAfterActionPerformed(action, dataContext, event);
+				return null;
+			}
 		});
 	}
 
@@ -147,7 +153,7 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 	}
 
 	public class ModuleFacade {
-		private final Map<String, VirtualFile> sourceRoots = new HashMap<>();
+		private final Map<String, VirtualFile> sourceRoots = new HashMap<String, VirtualFile>();
 		private final Module module;
 
 		private ModuleFacade(Module module) {
@@ -171,12 +177,15 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		}
 
 		@NotNull
-		public VirtualFile createSourceRoot(@NotNull String pathRelativeToModule, boolean testSource) {
-			return executeWriteAction(() -> {
-				VirtualFile dir = VfsUtil.createDirectoryIfMissing(getDir(), pathRelativeToModule);
-				PsiTestUtil.addSourceRoot(module, dir, testSource);
-				sourceRoots.put(pathRelativeToModule, dir);
-				return dir;
+		public VirtualFile createSourceRoot(final @NotNull String pathRelativeToModule, final boolean testSource) {
+			return executeWriteAction(new Callable<VirtualFile>() {
+				@Override
+				public VirtualFile call() throws Exception {
+					VirtualFile dir = VfsUtil.createDirectoryIfMissing(getDir(), pathRelativeToModule);
+					PsiTestUtil.addSourceRoot(module, dir, testSource);
+					sourceRoots.put(pathRelativeToModule, dir);
+					return dir;
+				}
 			});
 		}
 
@@ -186,14 +195,17 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		}
 
 		@NotNull
-		public VirtualFile addFile(@NotNull String pathRelativeToModule, @NotNull String fileText) {
-			return executeWriteAction(() -> {
-				VirtualFile dir = VfsUtil.createDirectoryIfMissing(getDir(), PathUtil.getParentPath(pathRelativeToModule));
-				VirtualFile file = dir.createChildData(this, StringUtil.getShortName(pathRelativeToModule, '/'));
+		public VirtualFile addFile(final @NotNull String pathRelativeToModule, final @NotNull String fileText) {
+			return executeWriteAction(new Callable<VirtualFile>() {
+				@Override
+				public VirtualFile call() throws Exception {
+					VirtualFile dir = VfsUtil.createDirectoryIfMissing(getDir(), PathUtil.getParentPath(pathRelativeToModule));
+					VirtualFile file = dir.createChildData(this, StringUtil.getShortName(pathRelativeToModule, '/'));
 
-				VfsUtil.saveText(file, fileText);
-				PsiDocumentManager.getInstance(getProject()).commitAllDocuments();
-				return file;
+					VfsUtil.saveText(file, fileText);
+					PsiDocumentManager.getInstance(getProject()).commitAllDocuments();
+					return file;
+				}
 			});
 		}
 	}
