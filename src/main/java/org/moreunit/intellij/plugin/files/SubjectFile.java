@@ -6,14 +6,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
+import static java.lang.Character.isUpperCase;
 import static java.util.Arrays.asList;
 import static org.moreunit.intellij.plugin.files.Files.withoutExtension;
 import static org.moreunit.intellij.plugin.files.Files.withoutLeadingDot;
+import static org.moreunit.intellij.plugin.util.Strings.applySameCapitalization;
+import static org.moreunit.intellij.plugin.util.Strings.capitalize;
 
 public class SubjectFile {
 
-	private static final List<String> COMMON_TEST_PREFIXES = asList("Test");
-	private static final List<String> COMMON_TEST_SUFFIXES = asList("Spec", "Test");
+	private static final List<String> COMMON_TEST_PREFIXES = asList("test");
+	private static final List<String> COMMON_TEST_SUFFIXES = asList("spec", "test");
 
 	private final String fileNameWithoutExtension;
 	private final String prefix;
@@ -34,7 +37,7 @@ public class SubjectFile {
 	@Nullable
 	private static String findTestPrefix(String name) {
 		for (String prefix : COMMON_TEST_PREFIXES) {
-			if (name.startsWith(prefix)) {
+			if (name.startsWith(applySameCapitalization(prefix, name))) {
 				return prefix;
 			}
 		}
@@ -44,7 +47,7 @@ public class SubjectFile {
 	@Nullable
 	private static String findTestSuffix(String name) {
 		for (String suffix : COMMON_TEST_SUFFIXES) {
-			if (name.endsWith(suffix)) {
+			if (name.endsWith(capitalize(suffix))) {
 				return suffix;
 			}
 		}
@@ -65,6 +68,10 @@ public class SubjectFile {
 			destName = withoutLeadingDot(destName);
 		}
 
+		if (isUpperCase(srcName.charAt(0)) != isUpperCase(destName.charAt(0))) {
+			return false;
+		}
+
 		if (testFile) {
 			return isCorrespondingProductionFilename(srcName, destName);
 		}
@@ -72,9 +79,6 @@ public class SubjectFile {
 	}
 
 	private boolean isCorrespondingTestFilename(String srcName, String destName) {
-		if (!Character.isUpperCase(srcName.charAt(0))) {
-			return false;
-		}
 		if (COMMON_TEST_SUFFIXES.stream().anyMatch(isSuffixBetween(srcName, destName))) {
 			return true;
 		}
@@ -82,20 +86,17 @@ public class SubjectFile {
 	}
 
 	private boolean isCorrespondingProductionFilename(String srcName, String destName) {
-		if (!Character.isUpperCase(destName.charAt(0))) {
-			return false;
-		}
-		if (isSuffixBetween(destName, srcName).test(suffix)) {
+		if (suffix != null && isSuffixBetween(destName, srcName).test(suffix)) {
 			return true;
 		}
-		return isPrefixBetween(destName, srcName).test(prefix);
+		return prefix != null && isPrefixBetween(destName, srcName).test(prefix);
 	}
 
 	private static Predicate<String> isPrefixBetween(String base, String maybePrefixed) {
-		return pre -> maybePrefixed.equals(pre + base);
+		return pre -> maybePrefixed.equals(applySameCapitalization(pre, maybePrefixed) + capitalize(base));
 	}
 
 	private static Predicate<String> isSuffixBetween(String base, String maybeSuffixed) {
-		return suf -> maybeSuffixed.equals(base + suf);
+		return suf -> maybeSuffixed.equals(base + capitalize(suf));
 	}
 }
