@@ -55,6 +55,8 @@ public class SubjectFile {
 		String srcName = fileNameWithoutExtension;
 		String destName = withoutExtension(name);
 
+		// Let's assume that if the user triggered an action from an hidden file,
+		// she actually wanted to do something with it...
 		if (srcName.startsWith(".")) {
 			if (!destName.startsWith(".")) {
 				return false;
