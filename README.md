@@ -58,3 +58,10 @@ Wait... seriously, Java 6? Yes, it is actually [required for MacOS users](https:
 2. Download sources of IntelliJ Community Edition into ../idea-ce/: ```git clone git://git.jetbrains.org/idea/community.git ../idea-ce```
 3. Checkout the tag corresponding to your IntelliJ version. Example: ```cd ../idea-ce && git checkout tags/idea/139.1117.1```
 4. Open the project within IntelliJ.
+
+### References / Links
+
+- [IntelliJ IDEA Plugin Development](https://confluence.jetbrains.com/display/IDEADEV/PluginDevelopment) (env setup, getting started…)
+- [Plugin Development FAQ](https://confluence.jetbrains.com/display/IDEADEV/Plugin+Development+FAQ)
+- [IntelliJ IDEA Architectural Overview](https://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Architectural+Overview)
+- [How to manage development life cycle of IntelliJ plugins with Maven](http://labs.bsb.com/2013/11/how-to-manage-development-life-cycle-of-intellij-plugins-with-maven-2/)
