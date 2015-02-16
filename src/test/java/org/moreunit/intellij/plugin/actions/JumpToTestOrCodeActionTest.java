@@ -7,9 +7,10 @@ import org.moreunit.intellij.plugin.fixtures.MoreUnitTestCase;
 /**
  * Almost full integration tests (headless), specifying the action main behavior. More specific
  * features are covered by unit tests.
- * <p>
+ * <p/>
  * Note that the "handler" associated to the action may be invoked directly to prevent an error
- * when IntelliJ attempt to display a hint in a non-displayed editor.
+ * when IntelliJ attempt to display a hint in a non-displayed editor: <tt>NullPointerException at
+ * com.intellij.codeInsight.hint.HintManagerImpl.getHintPositionRelativeTo</tt>
  */
 public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 
@@ -171,6 +172,48 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 		// then
 		assertEquals(srcFile, getEditedFile());
 	}
+
+	public void test__using_hyphen_separator_and_test_suffix() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/some/module.js");
+		VirtualFile testFile = mainModule.addFile("test/some/module-test.js");
+
+		openFileInEditor(srcFile);
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(testFile, getEditedFile());
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
+
+	public void test__using_hyphen_separator_and_test_prefix() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/some/module.js");
+		VirtualFile testFile = mainModule.addFile("test/some/test-module.js");
+
+		openFileInEditor(srcFile);
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(testFile, getEditedFile());
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
+
+	// TODO: underscore, space, camelCase with underscore, strange mix of everything (support exact match in that case)
 
 	private void performJumpAction() {
 		performEditorAction("org.moreunit.actions.jump");

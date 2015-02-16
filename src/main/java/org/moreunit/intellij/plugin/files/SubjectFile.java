@@ -3,9 +3,10 @@ package org.moreunit.intellij.plugin.files;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import static java.lang.Character.isUpperCase;
 import static java.util.Arrays.asList;
 import static org.moreunit.intellij.plugin.files.Files.withoutExtension;
 import static org.moreunit.intellij.plugin.files.Files.withoutLeadingDot;
@@ -14,12 +15,40 @@ import static org.moreunit.intellij.plugin.util.Strings.capitalize;
 
 public class SubjectFile {
 
-	private static final List<String> COMMON_TEST_PREFIXES = asList("spec", "test");
-	private static final List<String> COMMON_TEST_SUFFIXES = asList("spec", "test", "should");
+	// For the next 3 lists, order matters as it impacts evaluation: keep strings ordered from longest to shortest!
+	private static final List<String> WORD_SEPARATORS = asList("-", "");
+	private static final List<String> COMMON_TEST_PREFIXES_STR = asList("spec", "test");
+	private static final List<String> COMMON_TEST_SUFFIXES_STR = asList("spec", "test", "should");
+
+	private static final List<TestMarker> COMMON_TEST_PREFIXES;
+
+	static {
+		List<TestMarker> prefixes = new ArrayList<TestMarker>();
+		for (String prefix : COMMON_TEST_PREFIXES_STR) {
+			for (String separator : WORD_SEPARATORS) {
+				prefixes.add(new TestMarker(prefix, separator));
+			}
+		}
+
+		COMMON_TEST_PREFIXES = Collections.unmodifiableList(prefixes);
+	}
+
+	private static final List<TestMarker> COMMON_TEST_SUFFIXES;
+
+	static {
+		List<TestMarker> suffixes = new ArrayList<TestMarker>();
+		for (String suffix : COMMON_TEST_SUFFIXES_STR) {
+			for (String separator : WORD_SEPARATORS) {
+				suffixes.add(new TestMarker(suffix, separator));
+			}
+		}
+
+		COMMON_TEST_SUFFIXES = Collections.unmodifiableList(suffixes);
+	}
 
 	private final String fileNameWithoutExtension;
-	private final String prefix;
-	private final String suffix;
+	private final TestMarker prefix;
+	private final TestMarker suffix;
 	private final boolean testFile;
 
 	public SubjectFile(VirtualFile srcVFile) {
@@ -34,9 +63,9 @@ public class SubjectFile {
 	}
 
 	@Nullable
-	private static String findTestPrefix(String name) {
-		for (String prefix : COMMON_TEST_PREFIXES) {
-			if (name.startsWith(applySameCapitalization(prefix, name))) {
+	private static TestMarker findTestPrefix(String name) {
+		for (TestMarker prefix : COMMON_TEST_PREFIXES) {
+			if (prefix.isPrefixIn(name)) {
 				return prefix;
 			}
 		}
@@ -44,9 +73,9 @@ public class SubjectFile {
 	}
 
 	@Nullable
-	private static String findTestSuffix(String name) {
-		for (String suffix : COMMON_TEST_SUFFIXES) {
-			if (name.endsWith(capitalize(suffix))) {
+	private static TestMarker findTestSuffix(String name) {
+		for (TestMarker suffix : COMMON_TEST_SUFFIXES) {
+			if (suffix.isSuffixIn(name)) {
 				return suffix;
 			}
 		}
@@ -67,10 +96,6 @@ public class SubjectFile {
 			destName = withoutLeadingDot(destName);
 		}
 
-		if (isUpperCase(srcName.charAt(0)) != isUpperCase(destName.charAt(0))) {
-			return false;
-		}
-
 		if (testFile) {
 			return isCorrespondingProductionFilename(srcName, destName);
 		}
@@ -78,14 +103,14 @@ public class SubjectFile {
 	}
 
 	private boolean isCorrespondingTestFilename(String srcName, String destName) {
-		for (String suf : COMMON_TEST_SUFFIXES) {
-			if (isSuffixBetween(suf, srcName, destName)) {
+		for (TestMarker suf : COMMON_TEST_SUFFIXES) {
+			if (suf.isSuffixBetween(srcName, destName)) {
 				return true;
 			}
 		}
 
-		for (String pre : COMMON_TEST_PREFIXES) {
-			if (isPrefixBetween(pre, srcName, destName)) {
+		for (TestMarker pre : COMMON_TEST_PREFIXES) {
+			if (pre.isPrefixBetween(srcName, destName)) {
 				return true;
 			}
 		}
@@ -94,17 +119,59 @@ public class SubjectFile {
 	}
 
 	private boolean isCorrespondingProductionFilename(String srcName, String destName) {
-		if (suffix != null && isSuffixBetween(suffix, destName, srcName)) {
+		if (suffix != null && suffix.isSuffixBetween(destName, srcName)) {
 			return true;
 		}
-		return prefix != null && isPrefixBetween(prefix, destName, srcName);
+		return prefix != null && prefix.isPrefixBetween(destName, srcName);
 	}
 
-	private static boolean isPrefixBetween(String pre, String base, String maybePrefixed) {
-		return maybePrefixed.equals(applySameCapitalization(pre, maybePrefixed) + capitalize(base));
-	}
+	private static class TestMarker {
+		final String marker;
+		final String separator;
 
-	private static boolean isSuffixBetween(String suf, String base, String maybeSuffixed) {
-		return maybeSuffixed.equals(base + capitalize(suf));
+		TestMarker(String marker, String separator) {
+			this.marker = marker;
+			this.separator = separator;
+		}
+
+		boolean isPrefixBetween(String base, String maybePrefixed) {
+			if (isSeparatedByCase()) {
+				return maybePrefixed.equals(applySameCapitalization(marker, maybePrefixed) + capitalize(base));
+			}
+			return maybePrefixed.equals(marker + separator + base);
+		}
+
+		boolean isPrefixIn(String name) {
+			final String prefixStr;
+			if (isSeparatedByCase()) {
+				prefixStr = applySameCapitalization(marker, name);
+			} else {
+				prefixStr = marker + separator;
+			}
+
+			return name.startsWith(prefixStr);
+		}
+
+		boolean isSuffixBetween(String base, String maybeSuffixed) {
+			if (isSeparatedByCase()) {
+				return maybeSuffixed.equals(base + capitalize(marker));
+			}
+			return maybeSuffixed.equals(base + separator + marker);
+		}
+
+		boolean isSuffixIn(String name) {
+			final String suffixStr;
+			if (isSeparatedByCase()) {
+				suffixStr = capitalize(marker);
+			} else {
+				suffixStr = separator + marker;
+			}
+
+			return name.endsWith(suffixStr);
+		}
+
+		boolean isSeparatedByCase() {
+			return separator.equals("");
+		}
 	}
 }
