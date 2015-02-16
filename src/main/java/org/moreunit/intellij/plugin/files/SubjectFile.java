@@ -16,7 +16,7 @@ import static org.moreunit.intellij.plugin.util.Strings.capitalize;
 public class SubjectFile {
 
 	// For the next 3 lists, order matters as it impacts evaluation: keep strings ordered from longest to shortest!
-	private static final List<String> WORD_SEPARATORS = asList("-", "");
+	private static final List<String> WORD_SEPARATORS = asList("-", "_", "");
 	private static final List<String> COMMON_TEST_PREFIXES_STR = asList("spec", "test");
 	private static final List<String> COMMON_TEST_SUFFIXES_STR = asList("spec", "test", "should");
 

@@ -213,7 +213,47 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 		assertEquals(srcFile, getEditedFile());
 	}
 
-	// TODO: underscore, space, camelCase with underscore, strange mix of everything (support exact match in that case)
+	public void test__using_underscore_separator_and_spec_suffix() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/concept.js");
+		VirtualFile testFile = mainModule.addFile("test/concept_spec.js");
+
+		openFileInEditor(srcFile);
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(testFile, getEditedFile());
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
+
+	public void test__using_underscore_separator_and_spec_prefix() throws Exception {
+		// given
+		VirtualFile srcFile = mainModule.addFile("src/concept.js");
+		VirtualFile testFile = mainModule.addFile("test/spec_concept.js");
+
+		openFileInEditor(srcFile);
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(testFile, getEditedFile());
+
+		// when
+		performJumpAction();
+
+		// then
+		assertEquals(srcFile, getEditedFile());
+	}
+
+	// TODO: space, camelCase with underscore, strange mix of everything (support exact match in that case)
 
 	private void performJumpAction() {
 		performEditorAction("org.moreunit.actions.jump");
