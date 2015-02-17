@@ -233,10 +233,10 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 		assertEquals(srcFile, getEditedFile());
 	}
 
-	public void test__using_underscore_separator_and_spec_prefix() throws Exception {
+	public void test__using_space_separator() throws Exception {
 		// given
 		VirtualFile srcFile = mainModule.addFile("src/concept.js");
-		VirtualFile testFile = mainModule.addFile("test/spec_concept.js");
+		VirtualFile testFile = mainModule.addFile("test/spec concept.js");
 
 		openFileInEditor(srcFile);
 
