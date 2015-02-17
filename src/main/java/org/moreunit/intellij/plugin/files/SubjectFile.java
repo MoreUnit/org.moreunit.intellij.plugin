@@ -138,36 +138,44 @@ public class SubjectFile {
 			if (isSeparatedByCase()) {
 				return maybePrefixed.equals(applySameCapitalization(marker, maybePrefixed) + capitalize(base));
 			}
-			return maybePrefixed.equals(marker + separator + base);
+
+			String prefixPart = marker + separator;
+			if (maybePrefixed.length() != prefixPart.length() + base.length()) {
+				return false;
+			}
+
+			String start = maybePrefixed.substring(0, prefixPart.length());
+			String end = maybePrefixed.substring(prefixPart.length());
+			return end.equals(base) && start.toLowerCase().equals(prefixPart);
 		}
 
 		boolean isPrefixIn(String name) {
-			final String prefixStr;
 			if (isSeparatedByCase()) {
-				prefixStr = applySameCapitalization(marker, name);
-			} else {
-				prefixStr = marker + separator;
+				return name.startsWith(applySameCapitalization(marker, name));
 			}
-
-			return name.startsWith(prefixStr);
+			return name.toLowerCase().startsWith(marker + separator);
 		}
 
 		boolean isSuffixBetween(String base, String maybeSuffixed) {
 			if (isSeparatedByCase()) {
 				return maybeSuffixed.equals(base + capitalize(marker));
 			}
-			return maybeSuffixed.equals(base + separator + marker);
+
+			String suffixPart = separator + marker;
+			if (maybeSuffixed.length() != base.length() + suffixPart.length()) {
+				return false;
+			}
+
+			String start = maybeSuffixed.substring(0, maybeSuffixed.length() - suffixPart.length());
+			String end = maybeSuffixed.substring(maybeSuffixed.length() - suffixPart.length());
+			return start.equals(base) && end.toLowerCase().equals(suffixPart);
 		}
 
 		boolean isSuffixIn(String name) {
-			final String suffixStr;
 			if (isSeparatedByCase()) {
-				suffixStr = capitalize(marker);
-			} else {
-				suffixStr = separator + marker;
+				return name.endsWith(capitalize(marker));
 			}
-
-			return name.endsWith(suffixStr);
+			return name.toLowerCase().endsWith(separator + marker);
 		}
 
 		boolean isSeparatedByCase() {
