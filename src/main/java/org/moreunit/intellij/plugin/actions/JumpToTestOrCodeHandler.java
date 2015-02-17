@@ -10,6 +10,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.search.ProjectScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.moreunit.intellij.plugin.files.SubjectFile;
@@ -45,9 +46,12 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 			}
 		}
 
+		// only consider files under content roots of the project, ignoring libraries
+		GlobalSearchScope searchScope = ProjectScope.getContentScope(project);
+
 		List<PsiFile> allDestFiles = new ArrayList<PsiFile>();
 		for (String candidate : candidates) {
-			PsiFile[] destFiles = FilenameIndex.getFilesByName(project, candidate, GlobalSearchScope.allScope(project));
+			PsiFile[] destFiles = FilenameIndex.getFilesByName(project, candidate, searchScope);
 			Collections.addAll(allDestFiles, destFiles);
 		}
 
