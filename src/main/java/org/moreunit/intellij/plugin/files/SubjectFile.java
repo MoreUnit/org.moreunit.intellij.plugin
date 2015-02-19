@@ -125,6 +125,10 @@ public class SubjectFile {
 		return prefix != null && prefix.isPrefixBetween(destName, srcName);
 	}
 
+	public boolean isTestFile() {
+		return testFile;
+	}
+
 	private static class TestMarker {
 		final String marker;
 		final String separator;
