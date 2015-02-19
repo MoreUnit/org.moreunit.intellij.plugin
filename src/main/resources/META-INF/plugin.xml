@@ -41,6 +41,7 @@
         text="_Jump"
         description="Jump to a corresponding test file — if in a production source file — or to a corresponding production source file — if in a test file.">
       <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoTest"/>
+      <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="GotoTest"/>
     </action>
   </actions>
 
