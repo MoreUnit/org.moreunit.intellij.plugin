@@ -8,7 +8,7 @@ MoreUnit assists you in writing unit tests!
 
 Searching for MoreUnit for Eclipse? [Here it is!](http://moreunit.sourceforge.net)
 
-Otherwise, please find our [latest version here!](https://github.com/MoreUnit/org.moreunit.intellij.plugin/releases)
+Otherwise, please find our [latest version here!](https://github.com/MoreUnit/org.moreunit.intellij.plugin/releases/latest)
 
 
 ## Why This Plugin?
