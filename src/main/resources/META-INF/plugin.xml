@@ -38,7 +38,7 @@
   <actions>
     <action id="org.moreunit.actions.jump"
         class="org.moreunit.intellij.plugin.actions.JumpToTestOrCodeAction"
-        text="_Jump"
+        text="_Jump to Test / Test Subject"
         description="Jump to a corresponding test file — if in a production source file — or to a corresponding production source file — if in a test file.">
       <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoTest"/>
       <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="GotoTest"/>
