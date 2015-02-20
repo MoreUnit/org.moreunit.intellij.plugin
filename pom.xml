@@ -9,12 +9,35 @@
   <artifactId>org.moreunit.intellij.plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>MoreUnit IntelliJ Plugin</name>
-  <description>MoreUnit IntelliJ Plugin</description>
+  <description>
+    <![CDATA[
+    <img alt="MoreUnit Logo" src="http://moreunit.sourceforge.net/img/logo.png" />
+    <p>MoreUnit assists you in writing unit tests!</p>
+
+    <p>Features:</p>
+    <ul>
+    <li>Works for all IntelliJ-based IDEs (AppCode, IDEA, PhpStorm, PyCharm, RubyMine, WebStorm, etc.)</li>
+    <li>Jump form your production code to you test code, and vice-versa. To access the command:<ul>
+        <li>From the main menu: "Navigate" > "Jump to Test" or "Jump to Test Subject".</li>
+        <li>From the contextual menu: "Go To" > "Jump to Test" or "Jump to Test Subject".</li>
+        <li>From the "Find Action..." pop-up window: "Jump to Test / Test Subject".</li>
+    </ul></li>
+    <li>Should several candidates be found, a list is displayed for selection.</li>
+    <li>Supported naming patterns:<ul>
+        <li>lower/upper CamelCase or word separated with hyphens, underscores or even spaces</li>
+        <li>"test", "spec" or "should" suffixes (case insensitive, except for CamelCase style)</li>
+        <li>"test" or "spec" prefixes (case insensitive, except for CamelCase style)</li>
+    </ul></li>
+    <li>Writing tests for your Java code in Scala? Your test code does not have to be written in the same</li>
+    language as you production code!</li>
+    </ul>
+    ]]>
+  </description>
 
   <properties>
-    <vendor.url>http://moreunit.sourceforge.org</vendor.url>
+    <vendor.url>https://github.com/MoreUnit/org.moreunit.intellij.plugin</vendor.url>
     <vendor.email>moreunit.feedback@gmail.com</vendor.email>
-    <vendor.name>MoreUnit.org</vendor.name>
+    <vendor.name>MoreUnit</vendor.name>
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
