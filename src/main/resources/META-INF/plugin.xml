@@ -1,5 +1,5 @@
 <idea-plugin version="2">
-  <id>${project.artifactId}</id>
+  <id>MoreUnit</id>
   <name>MoreUnit</name>
   <version>${project.version}</version>
   <vendor email="${vendor.email}" url="${vendor.url}">${vendor.name}</vendor>

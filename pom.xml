@@ -249,7 +249,7 @@
             -Didea.config.path=${project.build.directory}/test-config
             -Didea.platform.prefix=Idea
             -Didea.test.group=ALL_EXCLUDE_DEFINED
-            -Didea.load.plugins.id=org.moreunit.intellij.plugin
+            -Didea.load.plugins.id=MoreUnit
           </argLine>
           <additionalClasspathElements>
             <additionalClasspathElement>${java.home}/../lib/tools.jar</additionalClasspathElement>
