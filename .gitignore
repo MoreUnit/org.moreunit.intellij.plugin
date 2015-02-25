@@ -1,5 +1,9 @@
 .idea
+!.idea/compiler.xml
+!.idea/encodings.xml
+!.idea/modules.xml
 !.idea/runConfigurations
+!.idea/vcs.xml
 classes
 target
 test-system

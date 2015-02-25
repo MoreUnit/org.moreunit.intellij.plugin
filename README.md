@@ -90,11 +90,17 @@ Wait... seriously, Java 6? Yes, it is actually [required for MacOS users]
 
 1. Check that the project builds: `./build.sh` (will download IntelliJ CE as a Maven dependency,
    then test the code and package the plugin)
-2. Download sources of IntelliJ Community Edition into ../idea-ce/:
+2. Download sources of IntelliJ Community Edition into `../idea-ce/`:
    ```git clone git://git.jetbrains.org/idea/community.git ../idea-ce```
 3. Checkout the tag corresponding to your IntelliJ version. Example:
    ```cd ../idea-ce && git checkout tags/idea/139.1117.1```
 4. Open the project within IntelliJ.
+5. To use the predefined run configurations ("Launche Plugin" and "Launch Test"), you will first
+   have to define a SDK named "IDEA CE" from your IntelliJ installation and from the sources
+   present in `../idea-ce` (please refer to the [official documentation]
+   (http://www.jetbrains.org/display/IJOS/Writing+Plug-ins) for details).
+   That should give you a SDK configuration looking like [this example]
+   (ide/preferences/options/jdk.table.xml) (under `${INTELLIJ_PREFERENCES}/options/jdk.table.xml`).
 
 
 ### Continuous Integration
