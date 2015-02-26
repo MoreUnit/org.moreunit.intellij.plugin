@@ -111,11 +111,11 @@ Notifications are sent by email to subscribers when builds fail or get fixed.
 Travis configuration can be found in [.travis.yml](.travis.yml).
 
 
-### Continuous Delivery
+### Continuous-ish Delivery
 
 We're committed to publish every piece of code as soon as it has been written. That said, not every
 commit deserves a publication: reformatting code or fixing a typo in an internal documentation
-shouldn't trigger a deployment, and sometimes we would like to have only one deployment for some
+shouldn't trigger a deployment, and sometimes we would like to have only one delivery for some
 related commits. Also, it would be nice not to pollute our users with several versions a day!
 
 For this reason, a version gets created and published only when a tag following the pattern vX.Y.Z
@@ -128,9 +128,34 @@ This process is a bit uncommon as there is a risk that a tagged version won't pa
 Usually, release processes involve first building the version, and then tagging the code. We chose
 that way nonetheless for its simplicity. To prevent any surprise from arising, it is advised to
 first push the code un-tagged and then, once Travis says everything is OK, to apply the tag and
-push it.
+push it. (That also means that such a version will be built a second time in order to be released,
+which isn't compatible with a strict definition of "continuous delivery".)
 
 And of course, any code that gets pushed should first have passed all tests locally ;-)
+
+
+#### Tagging a Version
+
+    # list previous versions for examples:
+    git tag -l -n99 v*
+
+    # tag current version (your default editor will open):
+    git tag -a vX.Y.Z
+
+    # in the editor, write:
+    Version X.Y.Z
+
+    Release notes in Markdown style, ideally as simple bullet points, for instance:
+
+    New features:
+
+    - feature 1
+    - feature 2
+
+
+    Bug fixes:
+
+    - fix 1
 
 
 ### References / Links
