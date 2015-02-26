@@ -1,5 +1,12 @@
 #!/bin/bash -e
 
+# check requirements for publication to JetBrains repo
+echo "###############################"
+echo "## $(which curl)"
+echo "## ${JETBRAINS_USER}"
+echo "###############################"
+
+
 readonly VERSION_TO_RELEASE=$(git tag -l --contains HEAD | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+' | sed 's/v\(.*\)/\1/')
 
 if [[ -n "${VERSION_TO_RELEASE}" ]]; then
