@@ -6,5 +6,7 @@
 !.idea/vcs.xml
 classes
 cookies.txt
+node_modules
+out.html
 target
 test-system
