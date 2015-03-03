@@ -1,5 +1,6 @@
 package org.moreunit.intellij.plugin.actions;
 
+import com.intellij.codeInsight.navigation.GotoTargetHandler.GotoData;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.vfs.VirtualFile;
 import org.moreunit.intellij.plugin.fixtures.MoreUnitTestCase;
@@ -37,10 +38,11 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 
 		// when
 		// (handler is invoked directly to prevent an error when IntelliJ attempt to display a hint in a non-displayed editor)
-		new JumpToTestOrCodeHandler().getSourceAndTargetElements(editor, psiFileFor(srcFileWithoutTestCounterpart));
+		GotoData gotoData = invokeJumpActionHandler(srcFileWithoutTestCounterpart, editor);
 
 		// then no exception is thrown, and:
 		assertEquals(srcFileWithoutTestCounterpart, getEditedFile());
+		assertEquals(0, gotoData.targets.length);
 	}
 
 	public void test__using_CamelCase_naming_and_Test_suffix__should_jump_from_test_code_to_production_code() throws Exception {
@@ -291,6 +293,32 @@ public class JumpToTestOrCodeActionTest extends MoreUnitTestCase {
 
 		// then
 		assertEquals(srcFile, getEditedFile());
+	}
+
+	public void test_should_put_destination_files_having_same_extension_in_first_place_when_several_matches() throws Exception {
+		// given (by default, without sorting files, this situation makes the test fail)
+		VirtualFile srcFile = mainModule.addFile("SomeConcept.js");
+		VirtualFile maybeTestFile1 = mainModule.addFile("SomeConceptSpec.rb");
+		VirtualFile maybeTestFile2 = mainModule.addFile("SomeConceptSpec.js");
+
+		Editor editor = openFileInEditor(srcFile);
+
+		// when
+		GotoData gotoData = invokeJumpActionHandler(srcFile, editor);
+
+		// then
+		assertTargetFilesInOrder(gotoData, maybeTestFile2, maybeTestFile1);
+	}
+
+	private void assertTargetFilesInOrder(GotoData data, VirtualFile... files) {
+		assertEquals(files.length, data.targets.length);
+		for (int i = 0; i < files.length; i++) {
+			assertEquals(files[i], data.targets[i].getContainingFile().getVirtualFile());
+		}
+	}
+
+	private GotoData invokeJumpActionHandler(VirtualFile startFile, Editor editor) {
+		return new JumpToTestOrCodeHandler().getSourceAndTargetElements(editor, psiFileFor(startFile));
 	}
 
 	private void performJumpAction() {

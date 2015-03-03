@@ -17,6 +17,7 @@ import org.moreunit.intellij.plugin.files.SubjectFile;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class JumpToTestOrCodeHandler extends GotoTargetHandler {
@@ -24,6 +25,11 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 	@Override
 	protected String getFeatureUsedKey() {
 		return "org.moreunit.actions.jump";
+	}
+
+	@Override
+	protected boolean shouldSortTargets() {
+		return false;
 	}
 
 	@Nullable
@@ -55,6 +61,8 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 			Collections.addAll(allDestFiles, destFiles);
 		}
 
+		placeFilesHavingThatExtensionFirst(allDestFiles, extensionOf(srcVFile));
+
 		if (!allDestFiles.isEmpty()) {
 			FileEditorManager.getInstance(project).openFile(allDestFiles.get(0).getVirtualFile(), true);
 		}
@@ -66,6 +74,31 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		return new GotoData(srcFile, allDestFiles.toArray(new PsiElement[allDestFiles.size()]), Collections.<AdditionalAction>emptyList());
 	}
 
+	private void placeFilesHavingThatExtensionFirst(List<PsiFile> files, final String ext) {
+		Collections.sort(files, new Comparator<PsiFile>() {
+			@Override
+			public int compare(PsiFile f1, PsiFile f2) {
+				String ext1 = extensionOf(f1);
+				String ext2 = extensionOf(f2);
+				if (ext1.equals(ext) && !ext2.equals(ext)) {
+					return -1;
+				}
+				if (!ext1.equals(ext) && ext2.equals(ext)) {
+					return 1;
+				}
+				// otherwise keep current order
+				return 0;
+			}
+		});
+	}
+
+	private String extensionOf(PsiFile file) {
+		return extensionOf(file.getVirtualFile());
+	}
+
+	private String extensionOf(VirtualFile file) {
+		return file.getExtension().toLowerCase();
+	}
 
 	@NotNull
 	@Override
