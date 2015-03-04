@@ -23,8 +23,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Test_suffix__should_jump_from_production_code_to_test_code() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/pack/Foo.java", "package pack; public class Foo() {}");
-		VirtualFile testFile = mainModule.addFile("test/pack/FooTest.java", "package pack; public class FooTest() {}");
+		VirtualFile srcFile = mainModule.addFile("src1/pack/Foo.java", "package pack; public class Foo() {}");
+		VirtualFile testFile = mainModule.addFile("test1/pack/FooTest.java", "package pack; public class FooTest() {}");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -35,7 +35,7 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test_should_fail_silently_when_no_corresponding_file_is_found() {
 		// given
-		VirtualFile srcFileWithoutTestCounterpart = mainModule.addFile("src/FileWithoutTestCounterpart.java",
+		VirtualFile srcFileWithoutTestCounterpart = mainModule.addFile("src1/FileWithoutTestCounterpart.java",
 				"public class FileWithoutTestCounterpart {}");
 
 		// when
@@ -47,8 +47,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Test_suffix__should_jump_from_test_code_to_production_code() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/pack/Foo.java", "package pack; public class Foo() {}");
-		VirtualFile testFile = mainModule.addFile("test/pack/FooTest.java", "package pack; public class FooTest() {}");
+		VirtualFile srcFile = mainModule.addFile("src1/pack/Foo.java", "package pack; public class Foo() {}");
+		VirtualFile testFile = mainModule.addFile("test1/pack/FooTest.java", "package pack; public class FooTest() {}");
 
 		// when
 		GotoData gotoData = jumpFrom(testFile);
@@ -59,8 +59,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Spec_suffix__should_jump_from_production_code_to_test_code() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/Something.rb");
-		VirtualFile testFile = mainModule.addFile("test/SomethingSpec.rb");
+		VirtualFile srcFile = mainModule.addFile("src1/Something.rb");
+		VirtualFile testFile = mainModule.addFile("test1/SomethingSpec.rb");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -71,8 +71,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Spec_suffix__should_jump_from_test_code_to_production_code() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/Something.rb");
-		VirtualFile testFile = mainModule.addFile("test/SomethingSpec.rb");
+		VirtualFile srcFile = mainModule.addFile("src1/Something.rb");
+		VirtualFile testFile = mainModule.addFile("test1/SomethingSpec.rb");
 
 		// when
 		GotoData gotoData = jumpFrom(testFile);
@@ -83,8 +83,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Test_prefix__should_jump_from_production_code_to_test_code() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/Something.cpp");
-		VirtualFile testFile = mainModule.addFile("test/TestSomething.cpp");
+		VirtualFile srcFile = mainModule.addFile("src1/Something.cpp");
+		VirtualFile testFile = mainModule.addFile("test1/TestSomething.cpp");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -95,8 +95,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Test_prefix__should_jump_from_test_code_to_production_code() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/Something.cpp");
-		VirtualFile testFile = mainModule.addFile("test/TestSomething.cpp");
+		VirtualFile srcFile = mainModule.addFile("src1/Something.cpp");
+		VirtualFile testFile = mainModule.addFile("test1/TestSomething.cpp");
 
 		// when
 		GotoData gotoData = jumpFrom(testFile);
@@ -107,8 +107,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test_should_handle_lowerCamelCase() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/something.js");
-		VirtualFile testFile = mainModule.addFile("test/testSomething.js");
+		VirtualFile srcFile = mainModule.addFile("src1/something.js");
+		VirtualFile testFile = mainModule.addFile("test1/testSomething.js");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -125,8 +125,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Spec_prefix() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/powers/Baby.txt");
-		VirtualFile testFile = mainModule.addFile("test/powers/SpecBaby.txt");
+		VirtualFile srcFile = mainModule.addFile("src1/powers/Baby.txt");
+		VirtualFile testFile = mainModule.addFile("test1/powers/SpecBaby.txt");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -143,8 +143,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_CamelCase_naming_and_Should_suffix() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/pack/AThing.java");
-		VirtualFile testFile = mainModule.addFile("test/pack/AThingShould.java");
+		VirtualFile srcFile = mainModule.addFile("src1/pack/AThing.java");
+		VirtualFile testFile = mainModule.addFile("test1/pack/AThingShould.java");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -161,8 +161,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_hyphen_separator_and_test_suffix() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/some/module.js");
-		VirtualFile testFile = mainModule.addFile("test/some/module-test.js");
+		VirtualFile srcFile = mainModule.addFile("src1/some/module.js");
+		VirtualFile testFile = mainModule.addFile("test1/some/module-test.js");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -179,8 +179,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_hyphen_separator_and_test_prefix() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/some/module.js");
-		VirtualFile testFile = mainModule.addFile("test/some/test-module.js");
+		VirtualFile srcFile = mainModule.addFile("src1/some/module.js");
+		VirtualFile testFile = mainModule.addFile("test1/some/test-module.js");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -197,8 +197,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_underscore_separator_and_spec_suffix() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/concept.js");
-		VirtualFile testFile = mainModule.addFile("test/concept_spec.js");
+		VirtualFile srcFile = mainModule.addFile("src1/concept.js");
+		VirtualFile testFile = mainModule.addFile("test1/concept_spec.js");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -215,8 +215,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_space_separator() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/concept.js");
-		VirtualFile testFile = mainModule.addFile("test/spec concept.js");
+		VirtualFile srcFile = mainModule.addFile("src1/concept.js");
+		VirtualFile testFile = mainModule.addFile("test1/spec concept.js");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -233,8 +233,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_separator__should_ignore_suffix_case() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/Concept.txt");
-		VirtualFile testFile = mainModule.addFile("test/Concept Spec.txt");
+		VirtualFile srcFile = mainModule.addFile("src1/Concept.txt");
+		VirtualFile testFile = mainModule.addFile("test1/Concept Spec.txt");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -251,8 +251,8 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 
 	public void test__using_separator__should_ignore_prefix_case() throws Exception {
 		// given
-		VirtualFile srcFile = mainModule.addFile("src/Concept.txt");
-		VirtualFile testFile = mainModule.addFile("test/Spec_Concept.txt");
+		VirtualFile srcFile = mainModule.addFile("src1/Concept.txt");
+		VirtualFile testFile = mainModule.addFile("test1/Spec_Concept.txt");
 
 		// when
 		GotoData gotoData = jumpFrom(srcFile);
@@ -267,7 +267,7 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 		assertTargetFilesInOrder(gotoData, srcFile);
 	}
 
-	public void test_should_put_destination_files_having_same_extension_in_first_place_when_several_matches() throws Exception {
+	public void test__regardless_of_source_folders__should_put_destination_files_having_same_extension_in_first_place_when_several_matches() throws Exception {
 		// given (by default, without sorting files, this situation makes the test fail)
 		VirtualFile srcFile = mainModule.addFile("SomeConcept.js");
 		VirtualFile maybeTestFile1 = mainModule.addFile("SomeConceptSpec.rb");
