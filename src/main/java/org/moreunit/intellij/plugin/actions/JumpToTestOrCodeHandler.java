@@ -3,7 +3,6 @@ package org.moreunit.intellij.plugin.actions;
 import com.intellij.codeInsight.CodeInsightBundle;
 import com.intellij.codeInsight.navigation.GotoTargetHandler;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
@@ -62,10 +61,6 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		}
 
 		placeFilesHavingThatExtensionFirst(allDestFiles, extensionOf(srcVFile));
-
-		if (!allDestFiles.isEmpty()) {
-			FileEditorManager.getInstance(project).openFile(allDestFiles.get(0).getVirtualFile(), true);
-		}
 
 		// for next steps, have a look at:
 		// - GotoTestOrCodeHandler
