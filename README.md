@@ -95,7 +95,7 @@ Wait... seriously, Java 6? Yes, it is actually [required for MacOS users]
 3. Checkout the tag corresponding to your IntelliJ version. Example:
    ```cd ../idea-ce && git checkout tags/idea/139.1117.1```
 4. Open the project within IntelliJ.
-5. To use the predefined run configurations ("Launche Plugin" and "Launch Test"), you will first
+5. To use the predefined run configurations ("Launch Plugin" and "Launch Test"), you will first
    have to define a SDK named "IDEA CE" from your IntelliJ installation and from the sources
    present in `../idea-ce` (please refer to the [official documentation]
    (http://www.jetbrains.org/display/IJOS/Writing+Plug-ins) for details).
@@ -156,6 +156,18 @@ And of course, any code that gets pushed should first have passed all tests loca
     Bug fixes:
 
     - fix 1
+
+
+### Common Problems
+
+_Q: IntelliJ seems to ignore changes I made to `plugin.xml`, for instance when using the "Launch
+Plugin" run configuration._
+
+A: The problem is: `src/main/resources/plugin.xml` must be processed by Maven first, since the IDEA
+project is configured to use `target/classes/META-INF/plugin.xml`. The predefined run configurations
+("Launch Plugin" and "Launch Test") both include a run of `mvn process-resources -P intellij`, but
+it looks like that doesn't work in some situations. The solution would then be to run
+`mvn process-resources -P intellij` by yourself.
 
 
 ### References / Links
