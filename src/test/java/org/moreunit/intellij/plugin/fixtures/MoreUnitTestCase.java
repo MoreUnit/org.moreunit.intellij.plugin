@@ -10,6 +10,7 @@ import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.editor.ex.EditorEx;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
+import com.intellij.openapi.fileEditor.FileEditorManagerEvent;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
@@ -26,6 +27,7 @@ import com.intellij.util.PathUtil;
 import org.apache.log4j.Logger;
 import org.apache.log4j.varia.NullAppender;
 import org.jetbrains.annotations.NotNull;
+import org.moreunit.intellij.plugin.navigation.ProjectFileEditorHistory;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -41,7 +43,8 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		Logger.getRootLogger().addAppender(new NullAppender());
 	}
 
-	private Editor editor;
+	protected Editor lastOpenedEditor;
+	protected VirtualFile lastOpenedFile;
 	protected ModuleFacade mainModule;
 
 	@Override
@@ -102,16 +105,28 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		Project project = getProject();
 		PsiDocumentManager.getInstance(project).commitAllDocuments();
 
-		editor = FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project, file), focusEditor);
-		editor.getCaretModel().moveToOffset(0);
+		lastOpenedEditor = FileEditorManager.getInstance(project).openTextEditor(new OpenFileDescriptor(project, file), focusEditor);
+		lastOpenedEditor.getCaretModel().moveToOffset(0);
 
 		DaemonCodeAnalyzer.getInstance(project).restart();
 
-		return editor;
+		// we have to fire this event ourselves, since unfortunately TestEditorManagerImpl doesn't fire it
+		selectionChanged(file);
+
+		lastOpenedFile = file;
+		return lastOpenedEditor;
+	}
+
+	private void selectionChanged(VirtualFile file) {
+		FileEditorManager editorManager = FileEditorManager.getInstance(getProject());
+		FileEditorManagerEvent event = new FileEditorManagerEvent(editorManager, null, null, file, null);
+
+		ProjectFileEditorHistory projectFileEditorHistory = getProject().getComponent(ProjectFileEditorHistory.class);
+		projectFileEditorHistory.selectionChanged(event);
 	}
 
 	protected void performEditorAction(@NotNull String actionId) {
-		final DataContext dataContext = ((EditorEx) editor).getDataContext();
+		final DataContext dataContext = ((EditorEx) lastOpenedEditor).getDataContext();
 
 		final ActionManagerEx managerEx = ActionManagerEx.getInstanceEx();
 		final AnAction action = managerEx.getAction(actionId);

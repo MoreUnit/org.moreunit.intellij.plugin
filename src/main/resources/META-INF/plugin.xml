@@ -32,7 +32,10 @@
   </application-components>
 
   <project-components>
-    <!-- Add your project components here -->
+    <component>
+      <interface-class>org.moreunit.intellij.plugin.navigation.ProjectFileEditorHistory</interface-class>
+      <implementation-class>org.moreunit.intellij.plugin.navigation.ProjectFileEditorHistory</implementation-class>
+    </component>
   </project-components>
 
   <actions>
@@ -42,6 +45,13 @@
         description="Jump to a corresponding test file — if in a production source file — or to a corresponding production source file — if in a test file.">
       <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoTest"/>
       <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="GotoTest"/>
+    </action>
+    <action id="org.moreunit.actions.jumpToLastOpenedTest"
+        class="org.moreunit.intellij.plugin.actions.JumpToLastOpenedTestOrCodeAction"
+        text="_Jump to Last Opened Test / Test Subject"
+        description="Jump to the last opened test file — if in a production source file — or to the last opened production source file — if in a test file.">
+      <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="org.moreunit.actions.jump"/>
+      <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="org.moreunit.actions.jump"/>
     </action>
   </actions>
 

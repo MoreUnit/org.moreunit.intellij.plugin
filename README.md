@@ -34,6 +34,14 @@ Otherwise, please find our [latest version here!](https://github.com/MoreUnit/or
     - "test" or "spec" prefixes (case insensitive, except for CamelCase style)
 - Writing tests for your Java code in Scala? Your test code does not have to be written in the same
   language as you production code!
+- Practicing TDD, having integration tests? You likely don't always have a one-to-one relationship
+between your test and production files...  
+MoreUnit lets you simply jump to the last opened test file (respectively to the last opened production
+file). To access the command:
+    - From the main menu: "Navigate" > "Jump to Last Opened Test" or "Jump to Last Opened Test Subject".
+    - From the contextual menu: "Go To" > "Jump to Last Opened Test" or "Jump to Last Opened Test Subject".
+    - From the "Find Action..." pop-up window: "Jump to Last Opened Test / Test Subject".
+    - (You should assign it a binding as well!)
 - _Work in progress, see the [backlog](#backlog)..._
 
 

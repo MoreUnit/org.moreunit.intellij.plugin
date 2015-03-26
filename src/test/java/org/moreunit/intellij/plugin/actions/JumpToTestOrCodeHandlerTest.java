@@ -1,9 +1,8 @@
 package org.moreunit.intellij.plugin.actions;
 
 import com.intellij.codeInsight.navigation.GotoTargetHandler.GotoData;
-import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.moreunit.intellij.plugin.fixtures.MoreUnitTestCase;
+import org.moreunit.intellij.plugin.fixtures.JumpActionHandlerTestCase;
 
 /**
  * Almost full integration tests (headless), specifying the action main behavior. More specific
@@ -14,12 +13,12 @@ import org.moreunit.intellij.plugin.fixtures.MoreUnitTestCase;
  * <li>focusing editors does not seem to work (thus we can't test whether the destination file has
  * been opened)
  * <li>it is impossible which file to jump to when several candidates are displayed
- * <li>IntelliJ fail to display a hint in a non-displayed editor when no destination files are
+ * <li>IntelliJ fails to display a hint in a non-displayed editor when no destination files are
  * found, leading to the following exception:
  * <tt>NullPointerException at com.intellij.codeInsight.hint.HintManagerImpl.getHintPositionRelativeTo</tt>
  * </ul>
  */
-public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
+public class JumpToTestOrCodeHandlerTest extends JumpActionHandlerTestCase {
 
 	public void test__using_CamelCase_naming_and_Test_suffix__should_jump_from_production_code_to_test_code() throws Exception {
 		// given
@@ -279,19 +278,12 @@ public class JumpToTestOrCodeHandlerTest extends MoreUnitTestCase {
 		assertTargetFilesInOrder(gotoData, maybeTestFile2, maybeTestFile1);
 	}
 
-	private void assertTargetFilesInOrder(GotoData data, VirtualFile... files) {
-		assertEquals(files.length, data.targets.length);
-		for (int i = 0; i < files.length; i++) {
-			assertEquals(files[i], data.targets[i].getContainingFile().getVirtualFile());
-		}
-	}
-
 	private GotoData jumpFrom(VirtualFile startFile) {
-		Editor editor = openFileInEditor(startFile);
-		return invokeJumpActionHandler(startFile, editor);
+		openFileInEditor(startFile);
+		return invokeJumpActionHandler();
 	}
 
-	private GotoData invokeJumpActionHandler(VirtualFile startFile, Editor editor) {
-		return new JumpToTestOrCodeHandler().getSourceAndTargetElements(editor, psiFileFor(startFile));
+	private GotoData invokeJumpActionHandler() {
+		return new JumpToTestOrCodeHandler().getSourceAndTargetElements(lastOpenedEditor, psiFileFor(lastOpenedFile));
 	}
 }
