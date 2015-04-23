@@ -62,6 +62,29 @@ public class FileEditorHistoryTest {
 		assertEquals(prodFile2, history.getLastFocusedProdFile());
 	}
 
+	@Test
+	public void should_ignore_null_file() {
+		// given
+		VirtualFile prodFile = file("src/some/path/some_concept.sh");
+
+		VirtualFile testFile = file("test/some/path/some_concept_test.sh");
+
+		// when
+		history.fileFocused(prodFile);
+		history.fileFocused(testFile);
+
+		// then
+		assertEquals(prodFile, history.getLastFocusedProdFile());
+		assertEquals(testFile, history.getLastFocusedTestFile());
+
+		// when
+		history.fileFocused(null);
+
+		// then no exception has been thrown, and state is the same:
+		assertEquals(prodFile, history.getLastFocusedProdFile());
+		assertEquals(testFile, history.getLastFocusedTestFile());
+	}
+
 	private VirtualFile file(String name) {
 		return new LightVirtualFile(name);
 	}
