@@ -127,7 +127,7 @@ file). To access the command:</ul>
               <artifactId>intellij-ce</artifactId>
               <version>${intellij.version}</version>
               <packaging>tar.gz</packaging>
-              <downloadUrl>http://download.jetbrains.com/idea/ideaIC-14.0.3.tar.gz</downloadUrl>
+              <downloadUrl>http://download.jetbrains.com/idea/ideaIC-14.1.5.tar.gz</downloadUrl>
             </artifactItem>
           </artifactItems>
         </configuration>
