@@ -183,10 +183,10 @@ _Q: I (or Travis) just retrieved the code and the build fails with the error:
 A: It looks like version x.y.z of IntelliJ isn't available for download anymore, and you're the
 first one noticing it. You should replace `intellij.version` in `pom.xml` by a version that is
 available for download, and rebuild.  
-The build will probably fail again because IntelliJ's dependencies will have change. Therefore,
+The build will probably fail again because IntelliJ's dependencies will have changed. Therefore,
 once the build has downloaded the requested version of IntelliJ, you should run the script
-`WHEN-INTELLIJ-VERSION-CHANGES_list-additional-classpath-elements.sh` and replace all
-`additionalClasspathElement`, except the first one, with the script output.
+`WHEN-INTELLIJ-VERSION-CHANGES_list-additional-classpath-elements.sh` and then edit `pom.xml`
+to replace all `additionalClasspathElement`, except the first one, with the script output.
 
 
 ### References / Links
