@@ -177,6 +177,17 @@ project is configured to use `target/classes/META-INF/plugin.xml`. The predefine
 it looks like that doesn't work in some situations. The solution would then be to run
 `mvn process-resources -P intellij` by yourself.
 
+_Q: I (or Travis) just retrieved the code and the build fails with the error:
+"java.io.IOException: Server returned HTTP response code: 403 for URL: http://download-cf.jetbrains.com/idea/ideaIC-x.y.z.tar.gz"_
+
+A: It looks like version x.y.z of IntelliJ isn't available for download anymore, and you're the
+first one noticing it. You should replace `intellij.version` in `pom.xml` by a version that is
+available for download, and rebuild.  
+The build will probably fail again because IntelliJ's dependencies will have change. Therefore,
+once the build has downloaded the requested version of IntelliJ, you should run the script
+`WHEN-INTELLIJ-VERSION-CHANGES_list-additional-classpath-elements.sh` and replace all
+`additionalClasspathElement`, except the first one, with the script output.
+
 
 ### References / Links
 
