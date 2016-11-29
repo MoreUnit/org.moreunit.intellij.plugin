@@ -53,7 +53,7 @@ file). To access the command:</ul>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
 
-    <intellij.version>14.1.5</intellij.version>
+    <intellij.version>2016.3</intellij.version>
   </properties>
 
   <dependencies>
@@ -262,35 +262,41 @@ file). To access the command:</ul>
           <additionalClasspathElements>
             <additionalClasspathElement>${java.home}/../lib/tools.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/annotations.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/asm-5.0.3.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/asm-all.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/asm-commons.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/asm.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/asm4-all.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/asm-analysis-5.0.3.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/asm-tree-5.0.3.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/automaton.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/batik-all.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/bcprov-jdk15on-155.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/boot.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/bootstrap.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/cglib-2.2.2.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/cglib-nodep-3.2.4.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/cli-parser-1.1.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/commons-codec-1.8.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/commons-codec-1.9.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/commons-compress-1.10.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/commons-httpclient-3.1-patched.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/commons-logging-1.1.3.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/commons-logging-1.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/commons-net-3.3.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/ecj-4.4.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/coverage-agent.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/coverage-instrumenter.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/coverage-util.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/ecj-4.6.1.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/extensions.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/fluent-hc-4.3.6.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/external-system-rt.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/fluent-hc-4.5.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/forms_rt.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/freemarker.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/groovy-all-2.3.9.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/gson-2.3.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/guava-17.0.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/groovy-all-2.4.6.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/gson-2.5.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/guava-19.0.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/hamcrest-core-1.3.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/hamcrest-library-1.3.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/httpclient-4.3.6.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/httpcore-4.3.3.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/httpmime-4.3.6.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/httpclient-4.5.2.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/httpcore-4.4.5.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/httpmime-4.5.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/icons.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/idea.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/idea_rt.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/imgscalr-lib-4.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/isorelax.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/javac2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jaxen-1.1.3.jar</additionalClasspathElement>
@@ -302,62 +308,67 @@ file). To access the command:</ul>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jgoodies-forms.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jgoodies-looks-2.4.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jh.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jimfs-1.1.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jing.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jna-utils.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jna-platform.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jna.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jps-builders.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jps-launcher.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jps-model.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jps-server.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch-0.1.51.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch-0.1.54.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch.agentproxy.connector-factory.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch.agentproxy.core.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch.agentproxy.pageant.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch.agentproxy.sshagent.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch.agentproxy.usocket-jna.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsch.agentproxy.usocket-nc.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsr166e.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jsr173_1.0_api.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/junit-4.11.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/junit-4.12.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/junit.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/jzlib-1.1.1.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/kotlin-reflect.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/kotlin-runtime.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/log4j.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/markdown4j-2.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/markdownj-core-0.4.2-SNAPSHOT.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/microba.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/miglayout-swing.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/miglayout-core-5.0.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/miglayout-swing-5.0.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/nanoxml-2.2.3.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/nekohtml-1.9.14.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/netty-all-4.1.0.Beta4.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/netty-all-4.1.5.Final.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/openapi.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/optimizedFileManager.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/oromatcher.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/picocontainer.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/protobuf-2.5.0.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/proxy-vole_20131209.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/pty4j-0.4.22.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/pty4j-0.7.1.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/purejavacomm.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/resolver.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/resources.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/resources_en.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/rhino-js-1_7R4.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/rngom-20051226-patched.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/sanselan-0.98-snapshot.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/serviceMessages.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/sherpa-solver.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/slf4j-api-1.7.10.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/slf4j-log4j12-1.7.10.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/snappy-in-java-0.3.1.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/snappy-in-java-0.5.1.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/sqlite-jdbc-3.6.20.1.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/streamex-0.6.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/swingx-core-1.6.2.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/trang-core.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/trove4j.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/trove4j_src.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/util.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/velocity.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/winp-1.21-patched.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/winp-1.23.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xbean.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xerces.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xercesImpl.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xml-apis-ext.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xml-apis.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xmlgraphics-commons-1.5.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xmlrpc-2.0.jar</additionalClasspathElement>
             <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xpp3-1.1.4-min.jar</additionalClasspathElement>
-            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xstream-1.4.3.jar</additionalClasspathElement>
+            <additionalClasspathElement>${project.build.directory}/dependency/IntelliJ-IDEA-CE/lib/xstream-1.4.8.jar</additionalClasspathElement>
           </additionalClasspathElements>
         </configuration>
       </plugin>
