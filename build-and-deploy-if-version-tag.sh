@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+echo "Java version: $(java -version)"
+echo "Maven version: $(mvn -version)"
+
 readonly VERSION_TO_RELEASE=$(git tag -l --contains HEAD | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+' | sed 's/v\(.*\)/\1/')
 
 if [[ -n "${VERSION_TO_RELEASE}" ]]; then

@@ -89,10 +89,8 @@ on it. Meanwhile, you can download MoreUnit from the [Releases page]
 ## Development
 ### Requirements
 
-Java 6 && Maven 3.2
+Java 8 && Maven 3.2
 
-Wait... seriously, Java 6? Yes, it is actually [required for MacOS users]
-(https://intellij-support.jetbrains.com/entries/27854363-IDE-doesn-t-start-after-updating-to-Mac-OS-Yosemite-or-Mavericks).
 
 ### Getting Started
 
