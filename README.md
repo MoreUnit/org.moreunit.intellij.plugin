@@ -71,6 +71,13 @@ on it. Meanwhile, you can download MoreUnit from the [Releases page]
 (https://github.com/MoreUnit/org.moreunit.intellij.plugin/releases).
 
 
+## Contributors
+
+Many thanks to:
+
+- [Jason Rust](https://github.com/jrust)
+
+
 ## Backlog
 
 - When several candidate files are found, order them by pertinence.
