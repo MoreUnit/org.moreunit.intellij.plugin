@@ -8,7 +8,7 @@ fi
 
 readonly JETBRAINS_URL=https://plugins.jetbrains.com
 # To test this script, replace previous variable with the folowing, and run:
-#     cd node scripts-test && npm install && node server.js
+#     cd scripts-test && npm install && node server.js
 # then run the script and look at the server output
 #readonly JETBRAINS_URL=http://localhost:3000
 
@@ -29,6 +29,9 @@ readonly PLUGIN_JAR=target/org.moreunit.intellij.plugin-${PLUGIN_VERSION}.jar
 
 
 # login
+echo POST --data j_username="${JETBRAINS_USER}" --data _spring_security_remember_me=on \
+  "${JETBRAINS_URL}"/j_spring_security_check
+
 curl --request POST \
 	--include \
 	--fail \
@@ -38,23 +41,45 @@ curl --request POST \
 	--data _spring_security_remember_me=on \
 	"${JETBRAINS_URL}"/j_spring_security_check | grep -v 'Location: .*/login/authfail'
 
-[ $? -ne 0 ] && echo "Could not log-in to JetBrains website" && exit 1
+[ $? -ne 0 ] && echo "Could not log-in to JetBrains website"
 
 
-# upload
-# The space before RELEASE_NOTES is intentional, it prevent curl to search for
-# a file, as release notes start with '<'
-curl --request POST \
-	--include \
-	--fail \
-	--cookie "${COOKIES_FILE}" \
-	--form pluginId="${JETBRAINS_PLUGIN_ID}" \
-	--form file=@"${PLUGIN_JAR}" \
-	--form notes=" <pre>${RELEASE_NOTES}</pre>" \
-	"${JETBRAINS_URL}"/plugin/uploadPlugin
+echo GET "${JETBRAINS_URL}/plugin/edit?pluginId=${JETBRAINS_PLUGIN_ID}"
 
-[ $? -ne 0 ] && echo "Could not upload plugin to JetBrains repository" && exit 1
+readonly SYNCHRONIZER_TOKEN=$(curl --request GET \
+  --include \
+  --fail \
+  --cookie "${COOKIES_FILE}" \
+	--cookie-jar "${COOKIES_FILE}" \
+  "${JETBRAINS_URL}/plugin/edit?pluginId=${JETBRAINS_PLUGIN_ID}" | grep 'com.jetbrains.pluginSite.SYNCHRONIZER_TOKEN' | sed 's/.*value="\([^"]*\)".*/\1/')
 
+[ $? -ne 0 ] && echo "Could not get Jetbrain's SYNCHRONIZER_TOKEN"
+
+if [ -z "$SYNCHRONIZER_TOKEN" ]; then
+  # upload
+  # The space before RELEASE_NOTES is intentional, it prevents curl to search for
+  # a file, as release notes start with '<'
+  echo POST \
+    --form "pluginId=${JETBRAINS_PLUGIN_ID}" \
+    --form "com.jetbrains.pluginSite.SYNCHRONIZER_TOKEN=${SYNCHRONIZER_TOKEN}" \
+    --form "pr=idea" \
+    --form "file=@${PLUGIN_JAR}" \
+    --form "notes= <pre>${RELEASE_NOTES}</pre>" \
+    "${JETBRAINS_URL}/plugin/uploadPlugin"
+  
+  curl --request POST \
+  	--include \
+  	--fail \
+  	--cookie "${COOKIES_FILE}" \
+  	--form "pluginId=${JETBRAINS_PLUGIN_ID}" \
+    --form "com.jetbrains.pluginSite.SYNCHRONIZER_TOKEN=${SYNCHRONIZER_TOKEN}" \
+    --form "pr=idea" \
+  	--form "file=@${PLUGIN_JAR}" \
+  	--form "notes= <pre>${RELEASE_NOTES}</pre>" \
+  	"${JETBRAINS_URL}/plugin/uploadPlugin"
+  
+  [ $? -ne 0 ] && echo "Could not upload plugin to JetBrains repository"
+fi
 
 echo "
 ===============================================================================
