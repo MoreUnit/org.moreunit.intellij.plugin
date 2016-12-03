@@ -30,9 +30,11 @@ public class SubjectFileTest {
 		assertFalse(new SubjectFile("Something").isTestFile());
 		assertFalse(new SubjectFile("my-module").isTestFile());
 		assertFalse(new SubjectFile("some_file").isTestFile());
+		assertFalse(new SubjectFile("someFile").isTestFile());
 
 		assertTrue(new SubjectFile("SomethingTest").isTestFile());
 		assertTrue(new SubjectFile("my-module-should").isTestFile());
 		assertTrue(new SubjectFile("spec_some_file").isTestFile());
+		assertTrue(new SubjectFile("someFile.spec").isTestFile());
 	}
 }
