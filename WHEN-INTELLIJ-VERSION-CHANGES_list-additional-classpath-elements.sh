@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INTELLIJ_SEMVER=14.1.5
-INTELLIJ_FULLVER=141.2735.5
+INTELLIJ_SEMVER=2016.3
+INTELLIJ_FULLVER=163.7743.44
 
 # to be adapted for next version
 tar tvf target/dependencies/intellij-ce-${INTELLIJ_SEMVER}.tar.gz \

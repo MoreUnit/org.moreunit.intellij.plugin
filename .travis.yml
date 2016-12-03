@@ -1,5 +1,5 @@
 language: java
-jdk: openjdk6
+jdk: oraclejdk8
 install: true
 script: "./build-and-deploy-if-version-tag.sh"
 deploy:
