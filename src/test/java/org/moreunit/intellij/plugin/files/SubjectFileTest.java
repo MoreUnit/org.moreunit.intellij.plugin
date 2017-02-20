@@ -31,10 +31,13 @@ public class SubjectFileTest {
 		assertFalse(new SubjectFile("my-module").isTestFile());
 		assertFalse(new SubjectFile("some_file").isTestFile());
 		assertFalse(new SubjectFile("someFile").isTestFile());
+		assertFalse(new SubjectFile("someTestsOfClassX").isTestFile());
 
 		assertTrue(new SubjectFile("SomethingTest").isTestFile());
 		assertTrue(new SubjectFile("my-module-should").isTestFile());
 		assertTrue(new SubjectFile("spec_some_file").isTestFile());
 		assertTrue(new SubjectFile("someFile.spec").isTestFile());
+		assertTrue(new SubjectFile("testsForClassX").isTestFile());
+		assertTrue(new SubjectFile("ClassXyzTests").isTestFile());
 	}
 }
