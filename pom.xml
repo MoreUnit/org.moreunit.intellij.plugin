@@ -25,8 +25,8 @@
     <li>Should several candidates be found, a list is displayed for selection.</li>
     <li>Supported naming patterns:<ul>
         <li>lower/upper CamelCase or word separated with hyphens, underscores or even spaces</li>
-        <li>"test", "spec" or "should" suffixes (case insensitive, except for CamelCase style)</li>
-        <li>"test" or "spec" prefixes (case insensitive, except for CamelCase style)</li>
+        <li>"test", "tests", "spec" or "should" suffixes (case insensitive, except for CamelCase style)</li>
+        <li>"test", "tests" or "spec" prefixes (case insensitive, except for CamelCase style)</li>
     </ul></li>
     <li>Writing tests for your Java code in Scala? Your test code does not have to be written in the same</li>
     language as you production code!</li>
@@ -53,7 +53,7 @@ file). To access the command:</ul>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
 
-    <intellij.version>2016.3</intellij.version>
+    <intellij.version>2016.3.4</intellij.version>
   </properties>
 
   <dependencies>
