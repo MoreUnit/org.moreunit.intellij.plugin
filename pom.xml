@@ -53,7 +53,7 @@ file). To access the command:</ul>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
 
-    <intellij.version>2016.3</intellij.version>
+    <intellij.version>2016.3.4</intellij.version>
   </properties>
 
   <dependencies>
