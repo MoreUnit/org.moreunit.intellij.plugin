@@ -30,8 +30,8 @@ Otherwise, please find our [latest version here!](https://github.com/MoreUnit/or
 - Should several candidates be found, a list is displayed for selection.
 - Supported naming patterns:
     - lower/upper CamelCase or word separated with hyphens, underscores or even spaces
-    - "test", "spec" or "should" suffixes (case insensitive, except for CamelCase style)
-    - "test" or "spec" prefixes (case insensitive, except for CamelCase style)
+    - "test", "tests", "spec" or "should" suffixes (case insensitive, except for CamelCase style)
+    - "test", "tests" or "spec" prefixes (case insensitive, except for CamelCase style)
 - Writing tests for your Java code in Scala? Your test code does not have to be written in the same
   language as you production code!
 - Practicing TDD, having integration tests? You likely don't always have a one-to-one relationship
