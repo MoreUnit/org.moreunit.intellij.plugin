@@ -9,6 +9,7 @@ build
 classes
 cookies.txt
 node_modules
+out
 out.html
 target
 test-system
