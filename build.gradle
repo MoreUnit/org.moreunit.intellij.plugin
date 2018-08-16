@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id "org.jetbrains.intellij" version "0.3.6"
+}
+
+apply plugin: 'idea'
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+
+intellij {
+        version '2018.2.1'
+        plugins 'coverage' //Bundled plugin dependencies
+        pluginName 'NaoMoreUnit'
+}
+
+group 'org.jetbrains'
+version '1.0' // Plugin version

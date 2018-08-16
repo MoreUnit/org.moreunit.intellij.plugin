@@ -4,6 +4,8 @@
 !.idea/modules.xml
 !.idea/runConfigurations
 !.idea/vcs.xml
+.gradle
+build
 classes
 cookies.txt
 node_modules
