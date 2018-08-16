@@ -71,15 +71,6 @@ public abstract class MoreUnitTestCase extends PlatformTestCase {
 		});
 	}
 
-	@Override
-	protected void tearDown() throws Exception {
-		for (Editor editor : EditorFactory.getInstance().getAllEditors()) {
-			EditorFactory.getInstance().releaseEditor(editor);
-		}
-
-		super.tearDown();
-	}
-
 	private <T> T executeWriteAction(final Callable<T> c) {
 		return new WriteCommandAction<T>(getProject()) {
 			@Override
