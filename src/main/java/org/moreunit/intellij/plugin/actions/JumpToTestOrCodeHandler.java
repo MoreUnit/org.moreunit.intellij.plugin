@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 
@@ -37,6 +39,17 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		Project project = editor.getProject();
 
 		VirtualFile srcVFile = srcFile.getVirtualFile();
+		String srcPath = srcVFile.getPath();
+
+		Pattern p = Pattern.compile("src/?(.*)/(.*)\\.(.*){3}$");
+		Matcher m = p.matcher(srcPath);
+
+		if(! m.find())
+		{
+			return new GotoData(srcFile, new ArrayList<PsiFile>().toArray(new PsiElement[0]), Collections.<AdditionalAction>emptyList());
+		}
+
+		String pathPart = m.group(1);
 
 		SubjectFile subject = new SubjectFile(srcVFile);
 
@@ -54,19 +67,31 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		// only consider files under content roots of the project, ignoring libraries
 		GlobalSearchScope searchScope = ProjectScope.getContentScope(project);
 
-		List<PsiFile> allDestFiles = new ArrayList<PsiFile>();
+		List<PsiFile> destFiles = new ArrayList<PsiFile>();
 		for (String candidate : candidates) {
-			PsiFile[] destFiles = FilenameIndex.getFilesByName(project, candidate, searchScope);
-			Collections.addAll(allDestFiles, destFiles);
+			PsiFile[] potentialDestFiles = FilenameIndex.getFilesByName(project, candidate, searchScope);
+			for(PsiFile potentialDestFile: potentialDestFiles)
+			{
+				VirtualFile file = potentialDestFile.getVirtualFile();
+				String destPath = file.getPath();
+
+				Pattern p2 = Pattern.compile(String.format("tests/%s/%s$", pathPart, file.getName()));
+				Matcher m2 = p2.matcher(destPath);
+
+				if(m2.find())
+				{
+					destFiles.add(potentialDestFile);
+				}
+			}
 		}
 
-		placeFilesHavingThatExtensionFirst(allDestFiles, extensionOf(srcVFile));
+		placeFilesHavingThatExtensionFirst(destFiles, extensionOf(srcVFile));
 
 		// for next steps, have a look at:
 		// - GotoTestOrCodeHandler
 		// - ProjectRootManager.getInstance(clazz.getProject()).getFileIndex().isInTestSourceContent(vFile);
 
-		return new GotoData(srcFile, allDestFiles.toArray(new PsiElement[allDestFiles.size()]), Collections.<AdditionalAction>emptyList());
+		return new GotoData(srcFile, destFiles.toArray(new PsiElement[destFiles.size()]), Collections.<AdditionalAction>emptyList());
 	}
 
 	private void placeFilesHavingThatExtensionFirst(List<PsiFile> files, final String ext) {
