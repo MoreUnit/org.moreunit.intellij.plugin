@@ -13,11 +13,16 @@ public class SimpleTestsPattern implements PathPattern
 
     public static SimpleTestsPattern create()
     {
-        return new SimpleTestsPattern("tests/?(?<path>.*)/(.*)\\.(.*){3}$");
+        return new SimpleTestsPattern("tests/?(?<path>.*)/(.*)$");
     }
 
-    public static SimpleTestsPattern create(Matcher matcher, String $filename)
+    public static SimpleTestsPattern create(Matcher matcher, String $filename) throws RuntimeException
     {
+        if(! matcher.find())
+        {
+            throw new RuntimeException();
+        }
+
         return new SimpleTestsPattern(String.format("tests/%s/%s$", matcher.group("path"), $filename));
     }
 

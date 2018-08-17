@@ -13,11 +13,16 @@ public class SimpleSrcPattern implements PathPattern
 
     public static SimpleSrcPattern create()
     {
-        return new SimpleSrcPattern("src/?(?<path>.*)/(.*)\\.(.*){3}$");
+        return new SimpleSrcPattern("src/?(?<path>.*)/(.*)$");
     }
 
-    public static SimpleSrcPattern create(Matcher matcher, String filename)
+    public static SimpleSrcPattern create(Matcher matcher, String filename) throws RuntimeException
     {
+        if(! matcher.find())
+        {
+            throw new RuntimeException();
+        }
+
         return new SimpleSrcPattern(String.format("src/%s/%s$", matcher.group("path"), filename));
     }
 
