@@ -1,20 +1,11 @@
 <idea-plugin version="2">
-  <id>MoreUnit</id>
-  <name>MoreUnit</name>
+  <id>NaoMoreUnit</id>
+  <name>NaoMoreUnit</name>
   <version>${project.version}</version>
-  <vendor email="${vendor.email}" url="${vendor.url}">${vendor.name}</vendor>
 
   <description>
-    <![CDATA[
-      ${project.description}
-    ]]>
+    Naoned fork of IntelliJ plugin MoreUnit
   </description>
-
-  <change-notes>
-    <![CDATA[
-      Please refer to the <a href="https://github.com/MoreUnit/org.moreunit.intellij.plugin/releases">release notes</a>.
-    ]]>
-  </change-notes>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
   <idea-version since-build="131"/>
