@@ -12,6 +12,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.ProjectScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.moreunit.intellij.plugin.Patterns.Factory;
 import org.moreunit.intellij.plugin.Patterns.PathPattern;
 import org.moreunit.intellij.plugin.Patterns.SimpleSrcPattern;
 import org.moreunit.intellij.plugin.Patterns.SimpleTestsPattern;
@@ -26,6 +27,8 @@ import java.util.regex.Pattern;
 
 public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 
+	private Factory patternFactory;
+
 	@Override
 	protected String getFeatureUsedKey() {
 		return "org.moreunit.actions.jump";
@@ -36,6 +39,12 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		return false;
 	}
 
+	public JumpToTestOrCodeHandler()
+	{
+		super();
+		this.patternFactory = new Factory();
+	}
+
 	@Nullable
 	@Override
 	protected GotoData getSourceAndTargetElements(Editor editor, PsiFile srcFile) {
@@ -44,11 +53,7 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		VirtualFile srcVFile = srcFile.getVirtualFile();
 		SubjectFile subject = new SubjectFile(srcVFile);
 
-		PathPattern fromPattern = SimpleSrcPattern.create();
-		if(subject.isTestFile())
-		{
-			fromPattern = SimpleTestsPattern.create();
-		}
+		PathPattern fromPattern = this.patternFactory.create(subject);
 		String srcPath = srcVFile.getPath();
 		Pattern p = Pattern.compile(fromPattern.toString());
 		Matcher m = p.matcher(srcPath);
