@@ -39,9 +39,15 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		Project project = editor.getProject();
 
 		VirtualFile srcVFile = srcFile.getVirtualFile();
-		String srcPath = srcVFile.getPath();
+		SubjectFile subject = new SubjectFile(srcVFile);
 
-		Pattern p = Pattern.compile("src/?(.*)/(.*)\\.(.*){3}$");
+		String fromPattern = "src/?(.*)/(.*)\\.(.*){3}$";
+		if(subject.isTestFile())
+		{
+			fromPattern = "tests/?(.*)/(.*)\\.(.*){3}$";
+		}
+		String srcPath = srcVFile.getPath();
+		Pattern p = Pattern.compile(fromPattern);
 		Matcher m = p.matcher(srcPath);
 
 		if(! m.find())
@@ -50,8 +56,6 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		}
 
 		String pathPart = m.group(1);
-
-		SubjectFile subject = new SubjectFile(srcVFile);
 
 		List<String> candidates = new ArrayList<String>();
 
@@ -75,7 +79,12 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 				VirtualFile file = potentialDestFile.getVirtualFile();
 				String destPath = file.getPath();
 
-				Pattern p2 = Pattern.compile(String.format("tests/%s/%s$", pathPart, file.getName()));
+				String toPattern = String.format("tests/%s/%s$", pathPart, file.getName());
+				if(subject.isTestFile())
+				{
+					toPattern = String.format("src/%s/%s$", pathPart, file.getName());
+				}
+				Pattern p2 = Pattern.compile(toPattern);
 				Matcher m2 = p2.matcher(destPath);
 
 				if(m2.find())
