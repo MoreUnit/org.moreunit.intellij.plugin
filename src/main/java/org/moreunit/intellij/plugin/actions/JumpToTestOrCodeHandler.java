@@ -12,6 +12,9 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.ProjectScope;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.moreunit.intellij.plugin.Patterns.PathPattern;
+import org.moreunit.intellij.plugin.Patterns.SimpleSrcPattern;
+import org.moreunit.intellij.plugin.Patterns.SimpleTestsPattern;
 import org.moreunit.intellij.plugin.files.SubjectFile;
 
 import java.util.ArrayList;
@@ -41,21 +44,19 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 		VirtualFile srcVFile = srcFile.getVirtualFile();
 		SubjectFile subject = new SubjectFile(srcVFile);
 
-		String fromPattern = "src/?(.*)/(.*)\\.(.*){3}$";
+		PathPattern fromPattern = SimpleSrcPattern.create();
 		if(subject.isTestFile())
 		{
-			fromPattern = "tests/?(.*)/(.*)\\.(.*){3}$";
+			fromPattern = SimpleTestsPattern.create();
 		}
 		String srcPath = srcVFile.getPath();
-		Pattern p = Pattern.compile(fromPattern);
+		Pattern p = Pattern.compile(fromPattern.toString());
 		Matcher m = p.matcher(srcPath);
 
 		if(! m.find())
 		{
 			return new GotoData(srcFile, new ArrayList<PsiFile>().toArray(new PsiElement[0]), Collections.<AdditionalAction>emptyList());
 		}
-
-		String pathPart = m.group(1);
 
 		List<String> candidates = new ArrayList<String>();
 
@@ -79,12 +80,8 @@ public class JumpToTestOrCodeHandler extends GotoTargetHandler {
 				VirtualFile file = potentialDestFile.getVirtualFile();
 				String destPath = file.getPath();
 
-				String toPattern = String.format("tests/%s/%s$", pathPart, file.getName());
-				if(subject.isTestFile())
-				{
-					toPattern = String.format("src/%s/%s$", pathPart, file.getName());
-				}
-				Pattern p2 = Pattern.compile(toPattern);
+				PathPattern toPattern = fromPattern.createTargetPatternFromMatcher(m, file.getName());
+				Pattern p2 = Pattern.compile(toPattern.toString());
 				Matcher m2 = p2.matcher(destPath);
 
 				if(m2.find())
