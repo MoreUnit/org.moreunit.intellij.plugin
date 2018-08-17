@@ -13,7 +13,7 @@ public class DDDTestsPattern implements PathPattern
 
     public static DDDTestsPattern create()
     {
-        return new DDDTestsPattern("src/?(?<bc>.*)/tests/unit/(?<path>.*)/(.*)$");
+        return new DDDTestsPattern("src/?(?<bc>.*)/tests/1-unit/(?<path>.*)/(.*)$");
     }
 
     public static DDDTestsPattern create(Matcher matcher, String filename) throws RuntimeException
@@ -23,7 +23,7 @@ public class DDDTestsPattern implements PathPattern
             throw new RuntimeException();
         }
 
-        return new DDDTestsPattern(String.format("src/%s/tests/unit/%s/%s$", matcher.group("bc"), matcher.group("path"), filename));
+        return new DDDTestsPattern(String.format("src/%s/tests/1-unit/%s/%s$", matcher.group("bc"), matcher.group("path"), filename));
     }
 
     public PathPattern createTargetPatternFromMatcher(Matcher matcher, String filename) {
