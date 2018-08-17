@@ -1,10 +1,19 @@
 <idea-plugin version="2">
-  <id>NaoMoreUnit</id>
-  <name>NaoMoreUnit</name>
+  <id>NaoUnit</id>
+  <name>NaoUnit</name>
+  <vendor>Naoned</vendor>
   <version>${project.version}</version>
 
-  <description>
-    Naoned fork of IntelliJ plugin MoreUnit
+  <description><![CDATA[
+    Switch between class and corresponding testcase.
+    <br>
+    <br>
+    Compatible with standard & DDD conventions :
+    <ul>
+      <li>src/* --> tests/*</li>
+      <li>src/*1/src/*2 --> src/*1/tests/1-unit/*2</li>
+    </ul>
+    ]]>
   </description>
 
   <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
@@ -32,17 +41,10 @@
   <actions>
     <action id="org.moreunit.actions.jump"
         class="org.moreunit.intellij.plugin.actions.JumpToTestOrCodeAction"
-        text="_Jump to Test / Test Subject"
-        description="Jump to a corresponding test file — if in a production source file — or to a corresponding production source file — if in a test file.">
+        text="Toogle Class / Test case"
+        description="Toggle between class and corresponding test case">
       <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoTest"/>
       <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="GotoTest"/>
-    </action>
-    <action id="org.moreunit.actions.jumpToLastOpenedTest"
-        class="org.moreunit.intellij.plugin.actions.JumpToLastOpenedTestOrCodeAction"
-        text="_Jump to Last Opened Test / Test Subject"
-        description="Jump to the last opened test file — if in a production source file — or to the last opened production source file — if in a test file.">
-      <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="org.moreunit.actions.jump"/>
-      <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="org.moreunit.actions.jump"/>
     </action>
   </actions>
 
