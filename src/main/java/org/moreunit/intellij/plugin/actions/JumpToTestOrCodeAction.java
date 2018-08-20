@@ -13,7 +13,7 @@ public class JumpToTestOrCodeAction extends BaseJumpToTestOrCodeAction {
 
 	@Override
 	protected String getTextWhenProductionFileSelected() {
-		return "Jump to Test";
+		return "Jump to Test case";
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class JumpToTestOrCodeAction extends BaseJumpToTestOrCodeAction {
 
 	@Override
 	protected String getTextWhenTestFileSelected() {
-		return "Jump to Test Subject";
+		return "Jump to tested class";
 	}
 
 	@Override
