@@ -7,10 +7,10 @@ deploy:
   api_key:
     secure: XVIYqs6NXdi8CTK4am9khfaM7Inurmg+TX9zJjCYm29bEGsbiTyrNz5ot7Oc1kr/Kfjo6amIgDf7/I8h99UgxIzf6fb/K2UltFryZDdO7V64pAqoRNRcCwLaDEMwA5swN68oTOUBvICgtEhFC05AyKR6cQyK5g138bh4qYTnK7k=
   file_glob: true
-  file: target/org.moreunit.intellij.plugin-*.jar
+  file: target/org.naounit.intellij.plugin-*.jar
   skip_cleanup: true
   on:
-    repo: MoreUnit/org.moreunit.intellij.plugin
+    repo: naoned/Plugin-PHPStorm-NaoUnit
     tags: true
     condition: -n "$(git tag -l --contains HEAD | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+')"
 env:

@@ -15,8 +15,13 @@ apply plugin: 'java'
 intellij {
         version '2018.2.1'
         plugins 'coverage' //Bundled plugin dependencies
-        pluginName 'NaoMoreUnit'
+        pluginName 'NaoUnit'
+}
+
+publishPlugin {
+    username intellijPublishUsername
+    password intellijPublishPassword
 }
 
 group 'org.jetbrains'
-version '0.1.1' // Plugin version
+version '0.1.2' // Plugin version

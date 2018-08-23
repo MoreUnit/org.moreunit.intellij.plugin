@@ -13,6 +13,9 @@
       <li>src/* --> tests/*</li>
       <li>src/*1/src/*2 --> src/*1/tests/1-unit/*2</li>
     </ul>
+    <br>
+    <br>
+    <i>Forked from great https://github.com/MoreUnit/org.moreunit.intellij.plugin. Thank you guys !</i>
     ]]>
   </description>
 
@@ -33,14 +36,14 @@
 
   <project-components>
     <component>
-      <interface-class>org.moreunit.intellij.plugin.navigation.ProjectFileEditorHistory</interface-class>
-      <implementation-class>org.moreunit.intellij.plugin.navigation.ProjectFileEditorHistory</implementation-class>
+      <interface-class>org.naounit.intellij.plugin.navigation.ProjectFileEditorHistory</interface-class>
+      <implementation-class>org.naounit.intellij.plugin.navigation.ProjectFileEditorHistory</implementation-class>
     </component>
   </project-components>
 
   <actions>
-    <action id="org.moreunit.actions.jump"
-        class="org.moreunit.intellij.plugin.actions.JumpToTestOrCodeAction"
+    <action id="org.naounit.actions.jump"
+        class="org.naounit.intellij.plugin.actions.JumpToTestOrCodeAction"
         text="Toogle Class / Test case"
         description="Toggle between class and corresponding test case">
       <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoTest"/>

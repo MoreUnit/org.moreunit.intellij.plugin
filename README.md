@@ -6,9 +6,9 @@ Installation de l'environnement de développement
 ---
 
 
-1. Installer le JDK 1.8 (OpenJDK 1.8 est normalement déjà présent si vous utilisiez Eclipse)
+1. Installer le JDK 1.8 (OpenJDK 1.8 est normalement déjà présent si vous utilisiez Eclipse - :warning: le jdk, pas la jre)
 2. Installer la [version community de Intellij](https://www.jetbrains.com/idea/download/#section=linux)
-3. Installer Gradle (**/!\ version 4.9**). [Cf. doc](https://docs.gradle.org/current/userguide/installation.html#_step_1_link_xl_href_https_gradle_org_releases_download_link_the_latest_gradle_distribution)
+3. Installer Gradle (** :warning: version 4.9**). [Cf. doc](https://docs.gradle.org/current/userguide/installation.html#_step_1_link_xl_href_https_gradle_org_releases_download_link_the_latest_gradle_distribution)
 4. Cloner ce repository
 5. Lancer Intellij
    1. Choisir d'importer un projet

@@ -13,3 +13,4 @@ out
 out.html
 target
 test-system
+gradle.properties
