@@ -13,7 +13,7 @@ apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
 
 intellij {
-        version '2018.2.1'
+        version '2018.3.2'
         plugins 'coverage' //Bundled plugin dependencies
         pluginName 'NaoUnit'
 }
@@ -24,4 +24,4 @@ publishPlugin {
 }
 
 group 'org.jetbrains'
-version '0.1.2' // Plugin version
+version '0.1.3' // Plugin version
