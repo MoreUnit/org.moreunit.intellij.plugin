@@ -1,58 +1,25 @@
-<idea-plugin version="2">
-  <id>MoreUnit</id>
-  <name>MoreUnit</name>
-  <version>${project.version}</version>
-  <vendor email="${vendor.email}" url="${vendor.url}">${vendor.name}</vendor>
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.github.gianasista.sampleplugin</id>
+    <name>sampleplugin</name>
+    <vendor>gianasista</vendor>
 
-  <description>
-    <![CDATA[
-      ${project.description}
-    ]]>
-  </description>
+    <depends>com.intellij.modules.platform</depends>
 
-  <change-notes>
-    <![CDATA[
-      Please refer to the <a href="https://github.com/MoreUnit/org.moreunit.intellij.plugin/releases">release notes</a>.
-    ]]>
-  </change-notes>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.github.gianasista.sampleplugin.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.github.gianasista.sampleplugin.services.MyProjectService"/>
+    </extensions>
 
-  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="131"/>
+    <applicationListeners>
+        <listener class="com.github.gianasista.sampleplugin.listeners.MyProjectManagerListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
 
-  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products on how to target different products -->
-  <!-- uncomment to enable plugin in all products -->
-  <depends>com.intellij.modules.lang</depends>
-
-  <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
-  </extensions>
-
-  <application-components>
-    <!-- Add your application components here -->
-  </application-components>
-
-  <project-components>
-    <component>
-      <interface-class>org.moreunit.intellij.plugin.navigation.ProjectFileEditorHistory</interface-class>
-      <implementation-class>org.moreunit.intellij.plugin.navigation.ProjectFileEditorHistory</implementation-class>
-    </component>
-  </project-components>
-
-  <actions>
-    <action id="org.moreunit.actions.jump"
-        class="org.moreunit.intellij.plugin.actions.JumpToTestOrCodeAction"
-        text="_Jump to Test / Test Subject"
-        description="Jump to a corresponding test file — if in a production source file — or to a corresponding production source file — if in a test file.">
-      <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="GotoTest"/>
-      <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="GotoTest"/>
-    </action>
-    <action id="org.moreunit.actions.jumpToLastOpenedTest"
-        class="org.moreunit.intellij.plugin.actions.JumpToLastOpenedTestOrCodeAction"
-        text="_Jump to Last Opened Test / Test Subject"
-        description="Jump to the last opened test file — if in a production source file — or to the last opened production source file — if in a test file.">
-      <add-to-group group-id="GoToCodeGroup" anchor="after" relative-to-action="org.moreunit.actions.jump"/>
-      <add-to-group group-id="EditorPopupMenu.GoTo" anchor="after" relative-to-action="org.moreunit.actions.jump"/>
-    </action>
-  </actions>
-
+    <actions>
+        <group id="MyPlugin.GreetingMenu" text="Greeting" description="Greeting menu">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="MyPlugin.Hello" class="com.github.gianasista.sampleplugin.SampleAction" text="Hello" description="Says hello"/>
+        </group>
+    </actions>
 </idea-plugin>

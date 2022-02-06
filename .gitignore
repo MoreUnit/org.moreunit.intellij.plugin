@@ -10,3 +10,6 @@ node_modules
 out.html
 target
 test-system
+.gradle/
+build/
+gradle/
